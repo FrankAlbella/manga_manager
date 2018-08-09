@@ -15,10 +15,10 @@
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
         </StackPanel>
         <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <ItemsControl ItemsSource="{Binding Path=DoujinsViewModel.Doujins}">
+            <ItemsControl VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" />
+                        <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
