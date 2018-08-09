@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Doujin_Manager.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="283" d:DesignWidth="200">
+             d:DesignHeight="92" d:DesignWidth="100">
     <Grid>
-        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="283" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
+        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="100" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
             <Image.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Open dojin directory" Click="OpenDirectoryMenuItem_Click"/>

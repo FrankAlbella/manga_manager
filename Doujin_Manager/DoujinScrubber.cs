@@ -41,6 +41,7 @@ namespace Doujin_Manager
             {
                 string[] files = Directory.GetFiles(directory);
                 string coverImagePath = "";
+                string dirName = "";
 
                 foreach (string file in files)
                 {
@@ -49,6 +50,7 @@ namespace Doujin_Manager
                         file.ToLower().EndsWith(".jpeg"))
                     {
                         coverImagePath = CompressImage(file);
+                        dirName = Path.GetFileName(Path.GetDirectoryName(file));
                         break;
                     }
                 }
@@ -61,7 +63,7 @@ namespace Doujin_Manager
                     Doujin doujin = new Doujin
                     {
                         CoverImage = coverImage,
-                        Title = Path.GetFileName(Path.GetDirectoryName(coverImagePath)),
+                        Title = dirName,
                         Author = "UNKOWN",
                         Directory = directory
                     };
@@ -79,7 +81,6 @@ namespace Doujin_Manager
         {
             string fileName = Path.GetFileName(imagePath);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
-            string rootDir = Path.GetPathRoot(imagePath);
             string fileCompressedPath = DirectoryInfo.thumbnailDir + "\\" + lastFolderName + " - "+ fileName;
 
             if (File.Exists(fileCompressedPath))
@@ -88,7 +89,7 @@ namespace Doujin_Manager
             try
             {
                 Bitmap image = new Bitmap(imagePath);
-                SaveCompressedImage(fileCompressedPath, image, 50);
+                SaveCompressedImage(fileCompressedPath, image, 80);
                 Debug.WriteLine("Image compressed: " + fileCompressedPath);
             }
             catch
@@ -104,7 +105,6 @@ namespace Doujin_Manager
         {
             if (quality < 0 || quality > 100)
                 throw new ArgumentOutOfRangeException("quality must be between 0 and 100.");
-
 
             // Encoder parameter for image quality 
             EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
