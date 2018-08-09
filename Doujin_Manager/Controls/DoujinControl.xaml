@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Doujin_Manager.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="352" d:DesignWidth="250">
+             d:DesignHeight="283" d:DesignWidth="200">
     <Grid>
-        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="352" VerticalAlignment="Top" Width="250" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp"/>
+        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="283" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp"/>
 
     </Grid>
 </UserControl>

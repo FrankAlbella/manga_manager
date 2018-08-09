@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinInfo}"
-        Title="Doujin Manager" Height="450" Width="800">
+        Title="Doujin Manager" Height="450" Width="900">
     <Grid >
-        <StackPanel VerticalAlignment="Top" Height="100" Margin="5">
+        <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="100" Margin="5">
             <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Author}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Tags}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Count}" FontWeight="Bold"/>
         </StackPanel>
         <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Left" Loaded="doujinPanel_Loaded" />
+            <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" />
         </ScrollViewer>
     </Grid>
 </Window>
