@@ -34,7 +34,8 @@ namespace Doujin_Manager.Controls
 
         private void EditDoujinMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            EditWindow editWindow = new EditWindow(ref this.doujin);
+            editWindow.Show();
         }
     }
 }

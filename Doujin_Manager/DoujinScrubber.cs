@@ -53,9 +53,12 @@ namespace Doujin_Manager
 
                 try
                 {
+                    BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath));
+                    coverImage.CacheOption = BitmapCacheOption.None;
+                    coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                     Doujin doujin = new Doujin
                     {
-                        CoverImage = new BitmapImage(new Uri(coverImagePath)),
+                        CoverImage = coverImage,
                         Title = Path.GetFileName(Path.GetDirectoryName(coverImagePath)),
                         Author = "UNKOWN",
                         Directory = directory
