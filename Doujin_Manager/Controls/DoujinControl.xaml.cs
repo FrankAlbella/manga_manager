@@ -20,10 +20,10 @@ namespace Doujin_Manager.Controls
 
         private void CoverImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            DoujinInfoViewModel viewModel = this.DataContext as DoujinInfoViewModel;
-            viewModel.Author = "Author: " + this.doujin.Author;
-            viewModel.Title = "Title: " + this.doujin.Title;
-            viewModel.Tags = "Tags: idk probably some furry shit";
+            DoujinViewModel viewModel = this.DataContext as DoujinViewModel;
+            viewModel.DoujinInfoViewModel.Author = "Author: " + this.doujin.Author;
+            viewModel.DoujinInfoViewModel.Title = "Title: " + this.doujin.Title;
+            viewModel.DoujinInfoViewModel.Tags = "Tags: idk probably some furry shit";
         }
 
         private void OpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -13,20 +16,22 @@ namespace Doujin_Manager
     {
         readonly string doujinRootDirectory = @"F:\Stuff\More Stuff";
 
-        public void SearchAll(WrapPanel panel, ref int count)
+        public void SearchAll(object state, DoujinViewModel dataContext)
         {
+            SynchronizationContext uiContext = state as SynchronizationContext;
+
             string[] allSubDirectories = Directory.GetDirectories(doujinRootDirectory, "*", SearchOption.AllDirectories);
 
             List<string> potentialDoujinDirectories = new List<string>();
 
             // Search all subdirectories which contain an image
             foreach (string directory in allSubDirectories)
-            {   
+            {
                 string[] files = Directory.GetFiles(directory);
 
-                if(files.Any(s => s.EndsWith(".jpg")) ||
-                    files.Any(s => s.EndsWith(".png")) ||
-                    files.Any(s => s.EndsWith(".jpeg")))
+                if (files.Any(s => s.ToLower().EndsWith(".jpg")) ||
+                    files.Any(s => s.ToLower().EndsWith(".png")) ||
+                    files.Any(s => s.ToLower().EndsWith(".jpeg")))
                 {
                     potentialDoujinDirectories.Add(directory);
                 }
@@ -34,24 +39,23 @@ namespace Doujin_Manager
 
             // Search for the first image in the directory 
             // and set it as cover image + add it to the panel
-            count = 0;
             foreach (string directory in potentialDoujinDirectories)
             {
                 string[] files = Directory.GetFiles(directory);
                 string coverImagePath = "";
 
-                foreach(string file in files)
+                foreach (string file in files)
                 {
-                    if(file.EndsWith(".jpg") ||
-                        file.EndsWith(".png") ||
-                        file.EndsWith(".jpeg"))
+                    if (file.ToLower().EndsWith(".jpg") ||
+                        file.ToLower().EndsWith(".png") ||
+                        file.ToLower().EndsWith(".jpeg"))
                     {
                         coverImagePath = file;
                         break;
                     }
                 }
 
-                try
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath));
                     coverImage.CacheOption = BitmapCacheOption.None;
@@ -64,15 +68,13 @@ namespace Doujin_Manager
                         Directory = directory
                     };
 
-                    count++;
+                    dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
 
-                    panel.Children.Add(new DoujinControl(doujin));
-                }
-                catch
-                {
-                    Debug.WriteLine("Problem with: " + coverImagePath);
-                }
+                }));
+                
+
             }
+            dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
         }
     }
 }

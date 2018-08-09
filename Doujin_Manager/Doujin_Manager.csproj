@@ -82,8 +82,10 @@
     <Compile Include="Controls\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DoujinInfoViewModel.cs" />
+    <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
     <Compile Include="DoujinScrubber.cs" />
+    <Compile Include="ViewModels\DoujinsViewModel.cs" />
+    <Compile Include="ViewModels\DoujinViewModel.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagList.cs" />
     <Page Include="Controls\DoujinControl.xaml">

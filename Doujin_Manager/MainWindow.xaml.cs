@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Doujin_Manager
 {
@@ -11,16 +14,16 @@ namespace Doujin_Manager
         {
             InitializeComponent();
         }
-
+        [STAThread]
         private void doujinPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            int count=0;
             DoujinScrubber ds = new DoujinScrubber();
-            ds.SearchAll(this.doujinPanel, ref count);
+            DoujinViewModel viewModel = this.DataContext as DoujinViewModel;
 
-            DoujinInfoViewModel viewModel = this.DataContext as DoujinInfoViewModel;
-            viewModel.Count = "Count: " + count;
+            SynchronizationContext uiContext = SynchronizationContext.Current;
 
+            Thread newThread = new Thread(() => ds.SearchAll(uiContext, viewModel));
+            newThread.Start();
         }
     }
 }

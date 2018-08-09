@@ -5,17 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
-        DataContext="{StaticResource DoujinInfo}"
-        Title="Doujin Manager" Height="450" Width="900">
+        DataContext="{StaticResource DoujinViewModel}"
+        Title="Doujin Manager" Height="600" Width="900">
     <Grid >
         <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="100" Margin="5">
-            <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Author}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Tags}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Count}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Title}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Author}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Tags}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
         </StackPanel>
         <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" />
+            <ItemsControl ItemsSource="{Binding Path=DoujinsViewModel.Doujins}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
         </ScrollViewer>
     </Grid>
 </Window>
