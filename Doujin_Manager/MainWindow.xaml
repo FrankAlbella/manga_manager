@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
-        Title="Doujin Manager" Height="600" Width="900">
+        Title="Doujin Manager" Height="600" Width="900" Loaded="Window_Loaded">
     <Grid >
         <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="100" Margin="5">
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Title}" FontWeight="Bold"/>

@@ -1,26 +1,22 @@
 ﻿using Doujin_Manager.Controls;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager
 {
     class DoujinScrubber
     {
-        readonly string doujinRootDirectory = @"F:\Stuff\More Stuff";
-
-        public void SearchAll(object state, DoujinViewModel dataContext)
+        public void SearchAll(DoujinViewModel dataContext)
         {
-            SynchronizationContext uiContext = state as SynchronizationContext;
+            if (DirectoryInfo.rootDoujinDirectory == string.Empty)
+                return;
 
-            string[] allSubDirectories = Directory.GetDirectories(doujinRootDirectory, "*", SearchOption.AllDirectories);
+            string[] allSubDirectories = Directory.GetDirectories(DirectoryInfo.rootDoujinDirectory, "*", SearchOption.AllDirectories);
 
             List<string> potentialDoujinDirectories = new List<string>();
 
