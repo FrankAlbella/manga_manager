@@ -7,7 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="283" d:DesignWidth="200">
     <Grid>
-        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="283" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp"/>
+        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="283" VerticalAlignment="Top" Width="200" Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
+            <Image.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open dojin directory" Click="OpenDirectoryMenuItem_Click"/>
+                    <MenuItem Header="Edit doujin" Click="EditDoujinMenuItem_Click"/>
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
 
     </Grid>
 </UserControl>
