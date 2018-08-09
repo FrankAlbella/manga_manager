@@ -89,7 +89,7 @@ namespace Doujin_Manager
             try
             {
                 Bitmap image = new Bitmap(imagePath);
-                SaveCompressedImage(fileCompressedPath, image, 80);
+                SaveCompressedImage(fileCompressedPath, image, 40);
                 Debug.WriteLine("Image compressed: " + fileCompressedPath);
             }
             catch
@@ -101,6 +101,7 @@ namespace Doujin_Manager
             return fileCompressedPath;
         }
 
+        // More quality = higher quality image
         private static void SaveCompressedImage(string path, Bitmap image, int quality)
         {
             if (quality < 0 || quality > 100)
