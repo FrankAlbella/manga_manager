@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,11 @@ namespace Doujin_Manager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // If appdata folder doesn't exist, create it and the thumbnail folder
+            if (!Directory.Exists(DirectoryInfo.appdataDir))
+                Directory.CreateDirectory(DirectoryInfo.thumbnailDir);
+
+            // Open folder select dialog if no folder location is saved
             if (Properties.Settings.Default.DoujinDirectory == string.Empty)
             {
                 using (var fbd = new FolderBrowserDialog())

@@ -1,9 +1,11 @@
 ﻿using Doujin_Manager.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -46,7 +48,7 @@ namespace Doujin_Manager
                         file.ToLower().EndsWith(".png") ||
                         file.ToLower().EndsWith(".jpeg"))
                     {
-                        coverImagePath = file;
+                        coverImagePath = CompressImage(file);
                         break;
                     }
                 }
@@ -65,12 +67,81 @@ namespace Doujin_Manager
                     };
 
                     dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
-
+                    dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
                 }));
                 
 
             }
-            dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
+            
+        }
+
+        private string CompressImage(string imagePath)
+        {
+            string fileName = Path.GetFileName(imagePath);
+            string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
+            string rootDir = Path.GetPathRoot(imagePath);
+            string fileCompressedPath = DirectoryInfo.thumbnailDir + "\\" + lastFolderName + " - "+ fileName;
+
+            if (File.Exists(fileCompressedPath))
+                return fileCompressedPath;
+
+            try
+            {
+                Bitmap image = new Bitmap(imagePath);
+                SaveCompressedImage(fileCompressedPath, image, 50);
+                Debug.WriteLine("Image compressed: " + fileCompressedPath);
+            }
+            catch
+            {
+                Debug.WriteLine("Image failed to be compressed: " + imagePath);
+                return imagePath;
+            }
+
+            return fileCompressedPath;
+        }
+
+        private static void SaveCompressedImage(string path, Bitmap image, int quality)
+        {
+            if (quality < 0 || quality > 100)
+                throw new ArgumentOutOfRangeException("quality must be between 0 and 100.");
+
+
+            // Encoder parameter for image quality 
+            EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
+
+            // image codec 
+            ImageCodecInfo codec = GetEncoderInfo(GetMameType(path));
+
+            EncoderParameters encoderParams = new EncoderParameters(1);
+            encoderParams.Param[0] = qualityParam;
+
+            image.Save(path, codec, encoderParams);
+        }
+
+        private static string GetMameType(string path)
+        {
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case ".jpeg":
+                case ".jpg":
+                    return "image/jpeg";
+                case ".png":
+                    return "image/png";
+                default:
+                    return "";
+            }
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(string mimeType)
+        {
+            // Get image codecs for all image formats 
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+
+            // Find the correct image codec 
+            for (int i = 0; i < codecs.Length; i++)
+                if (codecs[i].MimeType == mimeType)
+                    return codecs[i];
+            return null;
         }
     }
 }
