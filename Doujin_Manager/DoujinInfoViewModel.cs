@@ -31,6 +31,13 @@ namespace Doujin_Manager
             set { _tags = value; NotifyPropertyChanged("Tags"); }
         }
 
+        private string _count = "Count: ";
+        public string Count
+        {
+            get { return _count; }
+            set { _count = value; NotifyPropertyChanged("Count"); }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,8 +28,13 @@ namespace Doujin_Manager
 
         private void doujinPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            int count=0;
             DoujinScrubber ds = new DoujinScrubber();
-            ds.SearchAll(this.doujinPanel);
+            ds.SearchAll(this.doujinPanel, ref count);
+
+            DoujinInfoViewModel viewModel = this.DataContext as DoujinInfoViewModel;
+            viewModel.Count = "Count: " + count;
+
         }
     }
 }
