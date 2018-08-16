@@ -6,6 +6,6 @@
     <Application.Resources>
         <!--<local:DoujinInfoViewModel x:Key="DoujinInfo" />-->
         <!--<local:DoujinsViewModel x:Key="DoujinsViewModel" />-->
-        <local:DoujinViewModel x:Key="DoujinViewModel" />
+        <local:CentralViewModel x:Key="DoujinViewModel" />
     </Application.Resources>
 </Application>

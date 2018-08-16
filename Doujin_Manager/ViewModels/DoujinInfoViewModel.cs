@@ -9,28 +9,28 @@ namespace Doujin_Manager
         public string Title
         {
             get { return _title; }
-            set { _title = value; NotifyPropertyChanged("Title"); }
+            set { _title = "Title: " + value; NotifyPropertyChanged("Title"); }
         }
 
         private string _author = "Author: ";
         public string Author
         {
             get { return _author; }   
-            set { _author = value; NotifyPropertyChanged("Author"); }
+            set { _author = "Author: " + value; NotifyPropertyChanged("Author"); }
         }
 
         private string _tags = "Tags: ";
         public string Tags
         {
             get { return _tags; }
-            set { _tags = value; NotifyPropertyChanged("Tags"); }
+            set { _tags = "Tags: " + value; NotifyPropertyChanged("Tags"); }
         }
 
         private string _count = "Count: ";
         public string Count
         {
             get { return _count; }
-            set { _count = value; NotifyPropertyChanged("Count"); }
+            set { _count = "Count: " + value; NotifyPropertyChanged("Count"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

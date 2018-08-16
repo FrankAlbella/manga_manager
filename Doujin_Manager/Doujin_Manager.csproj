@@ -89,7 +89,7 @@
     <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
     <Compile Include="DoujinScrubber.cs" />
     <Compile Include="ViewModels\DoujinsViewModel.cs" />
-    <Compile Include="ViewModels\DoujinViewModel.cs" />
+    <Compile Include="ViewModels\CentralViewModel.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagList.cs" />
     <Page Include="Controls\DoujinControl.xaml">

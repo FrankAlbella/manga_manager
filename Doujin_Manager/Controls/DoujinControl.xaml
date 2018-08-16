@@ -9,12 +9,11 @@
     <Grid>
         <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="213" Width="150" VerticalAlignment="Top"  Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
             <Image.ContextMenu>
-                <ContextMenu>
+                <ContextMenu VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
                     <MenuItem Header="Open dojin directory" Click="OpenDirectoryMenuItem_Click"/>
                     <MenuItem Header="Edit doujin" Click="EditDoujinMenuItem_Click"/>
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
-
     </Grid>
 </UserControl>
