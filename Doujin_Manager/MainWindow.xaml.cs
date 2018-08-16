@@ -12,6 +12,8 @@ namespace Doujin_Manager
     /// </summary>
     public partial class MainWindow : Window
     {
+        CentralViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,33 +21,75 @@ namespace Doujin_Manager
 
         private void doujinPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            AsyncPopulateDoujinPanel();
+        }
+
+        private void AsyncPopulateDoujinPanel()
+        {
             DoujinScrubber ds = new DoujinScrubber();
-            DoujinViewModel viewModel = this.DataContext as DoujinViewModel;
 
             Thread newThread = new Thread(() => ds.SearchAll(viewModel));
             newThread.Start();
         }
 
+        private void ChooseDoujinRootDirection()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    Properties.Settings.Default.DoujinDirectory = fbd.SelectedPath;
+                    Properties.Settings.Default.Save();
+                }
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            viewModel = this.DataContext as CentralViewModel;
+
             // If appdata folder doesn't exist, create it and the thumbnail folder
             if (!Directory.Exists(DirectoryInfo.appdataDir))
                 Directory.CreateDirectory(DirectoryInfo.thumbnailDir);
 
             // Open folder select dialog if no folder location is saved
-            if (Properties.Settings.Default.DoujinDirectory == string.Empty)
+            if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
             {
-                using (var fbd = new FolderBrowserDialog())
-                {
-                    DialogResult result = fbd.ShowDialog();
-
-                    if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                    {
-                        Properties.Settings.Default.DoujinDirectory = fbd.SelectedPath;
-                        Properties.Settings.Default.Save();
-                    }
-                }
+                ChooseDoujinRootDirection();
             }
+        }
+
+        private void btnChangeDirectory_Click(object sender, RoutedEventArgs e)
+        {
+            ChooseDoujinRootDirection();
+            viewModel.DoujinsViewModel.Doujins.Clear();
+            AsyncPopulateDoujinPanel();
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.DoujinsViewModel.Doujins.Clear();
+            AsyncPopulateDoujinPanel();
+        }
+
+        // TODO: causes an exception because images are not released after list is cleared
+        private void btnCache_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.DoujinsViewModel.Doujins.Clear();
+            GC.Collect();
+            string[] thumbsnails = Directory.GetFiles(DirectoryInfo.thumbnailDir);
+
+            foreach (string thumbnail in thumbsnails)
+            {
+                File.Delete(thumbnail);
+            }
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

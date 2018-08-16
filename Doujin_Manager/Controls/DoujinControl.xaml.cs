@@ -15,15 +15,16 @@ namespace Doujin_Manager.Controls
             InitializeComponent();
 
             this.CoverImage.Source = doujin.CoverImage;
-            this.doujin = doujin;
+            this.DoujinTitle.Text = doujin.Title;
+            this.doujin = doujin;   
         }
 
         private void CoverImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            DoujinViewModel viewModel = this.DataContext as DoujinViewModel;
-            viewModel.DoujinInfoViewModel.Author = "Author: " + this.doujin.Author;
-            viewModel.DoujinInfoViewModel.Title = "Title: " + this.doujin.Title;
-            viewModel.DoujinInfoViewModel.Tags = "Tags: idk probably some furry shit";
+            CentralViewModel viewModel = this.DataContext as CentralViewModel;
+            viewModel.DoujinInfoViewModel.Author = this.doujin.Author;
+            viewModel.DoujinInfoViewModel.Title = this.doujin.Title;
+            viewModel.DoujinInfoViewModel.Tags = "[Unimplemented]";
         }
 
         private void OpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)

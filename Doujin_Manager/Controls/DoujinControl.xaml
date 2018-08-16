@@ -4,17 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Doujin_Manager.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="213" d:DesignWidth="150">
+             mc:Ignorable="d">
     <Grid>
-        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="213" Width="150" VerticalAlignment="Top"  Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
+        <Image x:Name="CoverImage" HorizontalAlignment="Left" Height="318.34" Width="224.19" VerticalAlignment="Top"  Stretch="Fill" Margin="3" MouseLeftButtonUp="CoverImage_MouseLeftButtonUp">
             <Image.ContextMenu>
-                <ContextMenu>
+                <ContextMenu VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
                     <MenuItem Header="Open dojin directory" Click="OpenDirectoryMenuItem_Click"/>
                     <MenuItem Header="Edit doujin" Click="EditDoujinMenuItem_Click"/>
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
-
+        <TextBlock x:Name="DoujinTitle" 
+                   Margin="0, 318.34, 0, 0"
+                   Padding="0, 1, 0, 0"
+                   Height="34"
+                   MaxWidth="224.19"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

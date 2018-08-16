@@ -7,8 +7,19 @@
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
         Title="Doujin Manager" Height="600" Width="900" Loaded="Window_Loaded">
-    <Grid >
-        <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="100" Margin="5">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Change doujin folder..." Click="btnChangeDirectory_Click"/>
+                    <MenuItem Header="_Refresh" Click="btnRefresh_Click"/>
+                    <MenuItem Header="Clear cache" Click="btnCache_Click"/>
+                    <MenuItem Header="_Close" Click="btnClose_Click"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
+        <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="80" Margin="5,20,5,0">
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Title}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Author}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Tags}" FontWeight="Bold"/>
@@ -22,7 +33,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            
+
         </ScrollViewer>
     </Grid>
 </Window>

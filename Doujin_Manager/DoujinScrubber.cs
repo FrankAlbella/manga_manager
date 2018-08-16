@@ -13,9 +13,8 @@ namespace Doujin_Manager
 {
     class DoujinScrubber
     {
-        public void SearchAll(DoujinViewModel dataContext)
+        public void SearchAll(CentralViewModel dataContext)
         {
-            DateTime dateTime = DateTime.Now;
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
                 return;
 
@@ -74,7 +73,7 @@ namespace Doujin_Manager
                         };
 
                         dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
-                        dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
+                        dataContext.DoujinInfoViewModel.Count = dataContext.DoujinsViewModel.Doujins.Count.ToString();
                     }));
                 }
                 catch
