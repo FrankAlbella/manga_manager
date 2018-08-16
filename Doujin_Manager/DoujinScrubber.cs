@@ -15,10 +15,11 @@ namespace Doujin_Manager
     {
         public void SearchAll(DoujinViewModel dataContext)
         {
-            if (DirectoryInfo.rootDoujinDirectory == string.Empty)
+            DateTime dateTime = DateTime.Now;
+            if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
                 return;
 
-            string[] allSubDirectories = Directory.GetDirectories(DirectoryInfo.rootDoujinDirectory, "*", SearchOption.AllDirectories);
+            string[] allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
 
             List<string> potentialDoujinDirectories = new List<string>();
 
@@ -55,26 +56,32 @@ namespace Doujin_Manager
                     }
                 }
 
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                try
                 {
-                    BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath));
-                    coverImage.CacheOption = BitmapCacheOption.None;
-                    coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    Doujin doujin = new Doujin
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        CoverImage = coverImage,
-                        Title = dirName,
-                        Author = "UNKOWN",
-                        Directory = directory
-                    };
+                        BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath))
+                        {
+                            CacheOption = BitmapCacheOption.None,
+                            CreateOptions = BitmapCreateOptions.IgnoreImageCache
+                        };
+                        Doujin doujin = new Doujin
+                        {
+                            CoverImage = coverImage,
+                            Title = dirName,
+                            Author = "UNKOWN",
+                            Directory = directory
+                        };
 
-                    dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
-                    dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
-                }));
-                
-
+                        dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
+                        dataContext.DoujinInfoViewModel.Count = "Count: " + dataContext.DoujinsViewModel.Doujins.Count;
+                    }));
+                }
+                catch
+                {
+                    Debug.WriteLine("Failed to add doujin at: " + coverImagePath);
+                }  
             }
-            
         }
 
         private string CompressImage(string imagePath)
@@ -102,16 +109,16 @@ namespace Doujin_Manager
         }
 
         // More quality = higher quality image
-        private static void SaveCompressedImage(string path, Bitmap image, int quality)
+        private void SaveCompressedImage(string path, Bitmap image, int quality)
         {
             if (quality < 0 || quality > 100)
-                throw new ArgumentOutOfRangeException("quality must be between 0 and 100.");
+                throw new ArgumentOutOfRangeException("Quality must be between 0 and 100.");
 
             // Encoder parameter for image quality 
             EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
 
-            // image codec 
-            ImageCodecInfo codec = GetEncoderInfo(GetMameType(path));
+            // Image codec 
+            ImageCodecInfo codec = GetEncoderInfo(GetMimeType(path));
 
             EncoderParameters encoderParams = new EncoderParameters(1);
             encoderParams.Param[0] = qualityParam;
@@ -119,7 +126,7 @@ namespace Doujin_Manager
             image.Save(path, codec, encoderParams);
         }
 
-        private static string GetMameType(string path)
+        private string GetMimeType(string path)
         {
             switch (Path.GetExtension(path).ToLower())
             {
@@ -133,7 +140,7 @@ namespace Doujin_Manager
             }
         }
 
-        private static ImageCodecInfo GetEncoderInfo(string mimeType)
+        private ImageCodecInfo GetEncoderInfo(string mimeType)
         {
             // Get image codecs for all image formats 
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
