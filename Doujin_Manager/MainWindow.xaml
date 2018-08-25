@@ -26,14 +26,16 @@
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
         </StackPanel>
         <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <ItemsControl VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-
+            <ListView x:Name="doujinPanel" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding CoverImage}" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Directory}" Header="Directory" Width="500"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </ScrollViewer>
     </Grid>
 </Window>

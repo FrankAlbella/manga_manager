@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doujin_Manager.Controls;
+using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -77,6 +78,11 @@ namespace Doujin_Manager
         // TODO: causes an exception because images are not released after list is cleared
         private void btnCache_Click(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < viewModel.DoujinsViewModel.Doujins.Count; i++)
+            {
+                viewModel.DoujinsViewModel.Doujins[i] = null;
+            }
+
             viewModel.DoujinsViewModel.Doujins.Clear();
             GC.Collect();
             string[] thumbsnails = Directory.GetFiles(DirectoryInfo.thumbnailDir);

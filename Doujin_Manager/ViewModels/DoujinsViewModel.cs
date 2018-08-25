@@ -5,6 +5,6 @@ namespace Doujin_Manager
 {
     class DoujinsViewModel
     {
-        public ObservableCollection<DoujinControl> Doujins { get; set; } = new ObservableCollection<DoujinControl>();
+        public ObservableCollection<Doujin> Doujins { get; set; } = new ObservableCollection<Doujin>();
     }
 }

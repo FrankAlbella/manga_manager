@@ -72,8 +72,10 @@ namespace Doujin_Manager
                             Directory = directory
                         };
 
-                        dataContext.DoujinsViewModel.Doujins.Add(new DoujinControl(doujin));
+                        dataContext.DoujinsViewModel.Doujins.Add(doujin);
                         dataContext.DoujinInfoViewModel.Count = dataContext.DoujinsViewModel.Doujins.Count.ToString();
+
+                        coverImage = null;
                     }));
                 }
                 catch
