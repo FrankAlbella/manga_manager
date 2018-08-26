@@ -25,8 +25,8 @@
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Tags}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
         </StackPanel>
-        <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <ListView x:Name="doujinPanel" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
+
+        <ListView x:Name="doujinPanel" Margin="0,100,0,0" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding CoverImage}" Width="100"/>
@@ -36,6 +36,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </ScrollViewer>
+        
     </Grid>
 </Window>
