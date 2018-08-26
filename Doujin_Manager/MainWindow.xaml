@@ -27,15 +27,19 @@
         </StackPanel>
 
         <ListView x:Name="doujinPanel" Margin="0,100,0,0" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding CoverImage}" Width="100"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Directory}" Header="Directory" Width="500"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding CoverImage}" Width="100"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
