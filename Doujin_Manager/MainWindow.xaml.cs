@@ -25,7 +25,7 @@ namespace Doujin_Manager
         {
             DoujinScrubber ds = new DoujinScrubber();
 
-            Thread newThread = new Thread(() => ds.SearchAll(dataContext));
+            Thread newThread = new Thread(() => ds.PopulateDoujins(dataContext));
             newThread.Start();
         }
 

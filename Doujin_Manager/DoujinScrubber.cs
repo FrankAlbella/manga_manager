@@ -14,7 +14,7 @@ namespace Doujin_Manager
 {
     class DoujinScrubber
     {
-        public void SearchAll(CentralViewModel dataContext)
+        public void PopulateDoujins(CentralViewModel dataContext)
         {
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
                 return;
@@ -22,6 +22,8 @@ namespace Doujin_Manager
             string[] allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
 
             List<string> potentialDoujinDirectories = new List<string>();
+
+            TagScrubber tagScrubber = new TagScrubber();
 
             // Search all subdirectories which contain an image
             foreach (string directory in allSubDirectories)
@@ -57,7 +59,7 @@ namespace Doujin_Manager
                 }
 
                 try
-                {
+                {   // evokes the main (UI) thread to add the Doujin
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
                         BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath))
@@ -71,7 +73,8 @@ namespace Doujin_Manager
                             CoverImage = coverImage,
                             Title = dirName,
                             Author = "UNKOWN",
-                            Directory = directory
+                            Directory = directory,
+                            Tags = tagScrubber.GetTagsFromTitle(dirName)
                         };
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);

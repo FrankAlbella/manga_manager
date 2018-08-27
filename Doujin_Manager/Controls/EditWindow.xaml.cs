@@ -31,6 +31,7 @@ namespace Doujin_Manager.Controls
                 this.doujin.CoverImage = new BitmapImage(new Uri(tBoxCoverDir.Text));
             this.doujin.Title = tBoxTitle.Text;
             this.doujin.Author = tBoxAuthor.Text;
+            this.doujin.Tags = tBoxTags.Text;
 
             this.Close();
         }
