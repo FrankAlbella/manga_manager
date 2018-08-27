@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Doujin_Manager.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -15,7 +16,6 @@ namespace Doujin_Manager.Controls
             InitializeComponent();
 
             this.CoverImage.Source = doujin.CoverImage;
-            this.DoujinTitle.Text = doujin.Title;
             this.doujin = doujin;   
         }
 
@@ -35,7 +35,7 @@ namespace Doujin_Manager.Controls
 
         private void EditDoujinMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            EditWindow editWindow = new EditWindow(ref this.doujin);
+            EditWindow editWindow = new EditWindow(this.doujin);
             editWindow.Show();
         }
     }

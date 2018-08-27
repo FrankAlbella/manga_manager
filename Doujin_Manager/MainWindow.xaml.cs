@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Doujin_Manager.Controls;
+using Doujin_Manager.ViewModels;
+using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -12,23 +14,18 @@ namespace Doujin_Manager
     /// </summary>
     public partial class MainWindow : Window
     {
-        CentralViewModel viewModel;
+        CentralViewModel dataContext;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void doujinPanel_Loaded(object sender, RoutedEventArgs e)
-        {
-            AsyncPopulateDoujinPanel();
-        }
-
         private void AsyncPopulateDoujinPanel()
         {
             DoujinScrubber ds = new DoujinScrubber();
 
-            Thread newThread = new Thread(() => ds.SearchAll(viewModel));
+            Thread newThread = new Thread(() => ds.SearchAll(dataContext));
             newThread.Start();
         }
 
@@ -48,7 +45,7 @@ namespace Doujin_Manager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            viewModel = this.DataContext as CentralViewModel;
+            dataContext = this.DataContext as CentralViewModel;
 
             // If appdata folder doesn't exist, create it and the thumbnail folder
             if (!Directory.Exists(DirectoryInfo.appdataDir))
@@ -61,23 +58,33 @@ namespace Doujin_Manager
             }
         }
 
+        private void doujinListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            AsyncPopulateDoujinPanel();
+        }
+
         private void btnChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
             ChooseDoujinRootDirection();
-            viewModel.DoujinsViewModel.Doujins.Clear();
+            dataContext.DoujinsViewModel.Doujins.Clear();
             AsyncPopulateDoujinPanel();
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.DoujinsViewModel.Doujins.Clear();
+            dataContext.DoujinsViewModel.Doujins.Clear();
             AsyncPopulateDoujinPanel();
         }
 
         // TODO: causes an exception because images are not released after list is cleared
         private void btnCache_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.DoujinsViewModel.Doujins.Clear();
+            for (int i = 0; i < dataContext.DoujinsViewModel.Doujins.Count; i++)
+            {
+                dataContext.DoujinsViewModel.Doujins[i] = null;
+            }
+
+            dataContext.DoujinsViewModel.Doujins.Clear();
             GC.Collect();
             string[] thumbsnails = Directory.GetFiles(DirectoryInfo.thumbnailDir);
 

@@ -19,21 +19,44 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <StackPanel x:Name="doujinInfoPanel" VerticalAlignment="Top" Height="80" Margin="5,20,5,0">
+        <StackPanel x:Name="doujinInfoPanel"
+                    VerticalAlignment="Top"
+                    Height="80"
+                    Margin="5,20,5,0">
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Title}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Author}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Tags}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
         </StackPanel>
-        <ScrollViewer Margin="0,100,0,0" Background="#FFE8E8E8">
-            <ItemsControl VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" ItemsSource="{Binding Path=DoujinsViewModel.Doujins}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel x:Name="doujinPanel" HorizontalAlignment="Center" Loaded="doujinPanel_Loaded" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
 
-        </ScrollViewer>
+        <ListView x:Name="doujinListView"
+                  Margin="0,100,0,0"
+                  ItemsSource="{Binding Path=DoujinsViewModel.Doujins}"
+                  SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
+                  Loaded="doujinListView_Loaded"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  ScrollViewer.CanContentScroll="False">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open Doujin"/>
+                    <MenuItem Header="Edit Doujin" Command="{Binding DoujinsViewModel.EditCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding CoverImage}" Width="140"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

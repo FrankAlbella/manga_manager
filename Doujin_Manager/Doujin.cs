@@ -1,13 +1,47 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager
 {
-    public class Doujin
+    public class Doujin : INotifyPropertyChanged
     {
-        public BitmapImage CoverImage { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public TagList Tags { get; set; }
+        private BitmapImage _coverImage;
+        public BitmapImage CoverImage
+        {
+            get { return _coverImage; }
+            set { this._coverImage = value; NotifyPropertyChanged("CoverImage"); }
+        }
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { this._title = value; NotifyPropertyChanged("Title"); }
+        }
+
+        private string _author;
+        public string Author
+        {
+            get { return _author; }
+            set { this._author = value; NotifyPropertyChanged("Author"); }
+        }
+
+        private string _tags = "[Unimplemented]";
+        public string Tags
+        {
+            get { return _tags; }
+            set { this._tags = value; NotifyPropertyChanged("Tags"); }
+        }
         public string Directory { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }
