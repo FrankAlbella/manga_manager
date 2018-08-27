@@ -11,7 +11,7 @@ namespace Doujin_Manager.Controls
     public partial class EditWindow : Window
     {
         Doujin doujin;
-        public EditWindow(ref Doujin doujin)
+        public EditWindow(Doujin doujin)
         {
             InitializeComponent();
 

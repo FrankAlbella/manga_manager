@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Doujin_Manager
+namespace Doujin_Manager.ViewModels
 {
     public class DoujinInfoViewModel : INotifyPropertyChanged
     {

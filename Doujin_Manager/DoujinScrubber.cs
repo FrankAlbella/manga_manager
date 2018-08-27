@@ -1,4 +1,5 @@
 ﻿using Doujin_Manager.Controls;
+using Doujin_Manager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -62,7 +63,8 @@ namespace Doujin_Manager
                         BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath))
                         {
                             CacheOption = BitmapCacheOption.None,
-                            CreateOptions = BitmapCreateOptions.IgnoreImageCache
+                            CreateOptions = BitmapCreateOptions.IgnoreImageCache,
+                            DecodePixelWidth = 140
                         };
                         Doujin doujin = new Doujin
                         {
@@ -74,8 +76,6 @@ namespace Doujin_Manager
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
                         dataContext.DoujinInfoViewModel.Count = dataContext.DoujinsViewModel.Doujins.Count.ToString();
-
-                        coverImage = null;
                     }));
                 }
                 catch

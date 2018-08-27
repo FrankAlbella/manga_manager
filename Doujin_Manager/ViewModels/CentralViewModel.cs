@@ -1,4 +1,4 @@
-﻿namespace Doujin_Manager
+﻿namespace Doujin_Manager.ViewModels
 {
     class CentralViewModel
     {

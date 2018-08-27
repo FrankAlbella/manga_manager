@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\CentralViewModel.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagList.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Page Include="Controls\DoujinControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
