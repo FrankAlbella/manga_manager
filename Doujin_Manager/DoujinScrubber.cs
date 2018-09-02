@@ -19,7 +19,20 @@ namespace Doujin_Manager
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
                 return;
 
-            string[] allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
+            string[] allSubDirectories;
+
+            try
+            {
+                allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
+            }
+            catch(UnauthorizedAccessException e)
+            {
+                MessageBox.Show(e.Message,
+                    "Unauthorized Access Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
 
             List<string> potentialDoujinDirectories = new List<string>();
 
@@ -90,7 +103,7 @@ namespace Doujin_Manager
 
                 System.Threading.Thread.Sleep(500);
             }
-        }
+            }
 
         private string CompressImage(string imagePath)
         {
