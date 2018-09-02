@@ -17,18 +17,21 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Cover Image:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
-        <TextBlock Text="Title:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
-        <TextBlock Text="Author:" FontWeight="Bold" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"/>
-        <TextBlock Text="Tags:" FontWeight="Bold" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBlock Text="ID: " FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
+        <TextBlock Text="Cover Image:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+        <TextBlock Text="Title:" FontWeight="Bold" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center"/>
+        <TextBlock Text="Author:" FontWeight="Bold" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center"/>
+        <TextBlock Text="Tags:" FontWeight="Bold" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="tBoxCoverDir" Grid.Column="1" Grid.Row="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxTitle" Grid.Column="1" Grid.Row="1" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxAuthor" Grid.Column="1" Grid.Row="2" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxTags" Grid.Column="1" Grid.Row="3" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tBoxID" Grid.Column="1" Grid.Row="0" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tBoxCoverDir" Grid.Column="1" Grid.Row="1" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tBoxTitle" Grid.Column="1" Grid.Row="2" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tBoxAuthor" Grid.Column="1" Grid.Row="3" Height="23" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tBoxTags" Grid.Column="1" Grid.Row="4" Height="23" VerticalContentAlignment="Center"/>
 
-        <Button x:Name="btnSave" Content="Save" Width="57" Height="25" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="btnSave_Click"/>
+        <Button x:Name="btnSave" Content="Save" Width="57" Height="25" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="btnSave_Click"/>
     </Grid>
 </Window>

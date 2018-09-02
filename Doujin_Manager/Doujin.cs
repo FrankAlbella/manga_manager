@@ -32,7 +32,10 @@ namespace Doujin_Manager
             get { return _tags; }
             set { this._tags = value; NotifyPropertyChanged("Tags"); }
         }
+
         public string Directory { get; set; }
+
+        public string ID { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string propertyName)

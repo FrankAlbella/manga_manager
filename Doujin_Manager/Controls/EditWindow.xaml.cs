@@ -24,16 +24,33 @@ namespace Doujin_Manager.Controls
             tBoxTitle.Text = this.doujin.Title;
             tBoxAuthor.Text = this.doujin.Author;
             tBoxTags.Text = this.doujin.Tags;
+            tBoxID.Text = this.doujin.ID;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if(File.Exists(tBoxCoverDir.Text))
                 this.doujin.CoverImage = new BitmapImage(new Uri(tBoxCoverDir.Text));
-            this.doujin.Title = tBoxTitle.Text;
-            this.doujin.Author = tBoxAuthor.Text;
-            this.doujin.Tags = tBoxTags.Text;
 
+            if (this.doujin.ID != tBoxID.Text)
+            {
+                TagScrubber tagScrubber = new TagScrubber();
+                tagScrubber.GatherDoujinDetails(tBoxID.Text, TagScrubber.SearchMode.ID);
+
+                if (tagScrubber.HasValues)
+                {
+                    this.doujin.ID = tagScrubber.ID;
+                    this.doujin.Title = tagScrubber.Title;
+                    this.doujin.Author = tagScrubber.Author;
+                    this.doujin.Tags = tagScrubber.Tags;
+                }
+            }
+            else
+            {
+                this.doujin.Title = tBoxTitle.Text;
+                this.doujin.Author = tBoxAuthor.Text;
+                this.doujin.Tags = tBoxTags.Text;
+            }
             this.Close();
         }
     }

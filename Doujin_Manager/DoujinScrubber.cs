@@ -71,7 +71,7 @@ namespace Doujin_Manager
                     }
                 }
 
-                tagScrubber.GatherTagsAndAuthor(dirName);
+                tagScrubber.GatherDoujinDetails(dirName, TagScrubber.SearchMode.Title);
 
                 try
                 {   // evokes the main (UI) thread to add the Doujin
@@ -89,7 +89,8 @@ namespace Doujin_Manager
                             Title = dirName,
                             Author = tagScrubber.Author,
                             Directory = directory,
-                            Tags = tagScrubber.Tags
+                            Tags = tagScrubber.Tags,
+                            ID = tagScrubber.ID
                         };
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
@@ -101,9 +102,11 @@ namespace Doujin_Manager
                     Debug.WriteLine("Failed to add doujin at: " + coverImagePath);
                 }
 
-                System.Threading.Thread.Sleep(500);
+                // Add delay to prevent sending too many requests to nHentai
+                // currently still results in a ban (403 Forbidden)
+                //System.Threading.Thread.Sleep(500);
             }
-            }
+        }
 
         private string CompressImage(string imagePath)
         {

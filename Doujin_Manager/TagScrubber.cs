@@ -1,72 +1,143 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Doujin_Manager
 {
     class TagScrubber
     {
-        public string Author { get; set; }
-        public string Tags { get; set; }
+        public string Title { get; set; } = "";
+        public string Author { get; set; } = "";
+        public string Tags { get; set; } = "";
+        public string ID { get; set; } = "000000";
+        public bool HasValues { get; set; } = false;
 
-        private readonly string nhentaiUrl = @"https://nhentai.net";
         private readonly string nhentaiSearchUrl = @"https://nhentai.net/api/galleries/search?query=";
-        private readonly string exhentaiSearchUrl = @"https://exhentai.org/?f_search=";
+        private readonly string nhentaiGalleryUrl = @"https://nhentai.net/api/gallery/";
 
-        public void GatherTagsAndAuthor(string doujinTitle)
+        public enum SearchMode
         {
-            doujinTitle = WebUtility.UrlEncode(doujinTitle);
+            Title, 
+            ID
+        }
 
-            string json;
+        /// <summary>
+        /// Used to gather and set information related to the doujin online.
+        /// Always use before calling Author, Tags, or ID.
+        /// </summary>
+        /// <param name="searchTerm">Term used to gather info. Can be doujin title or ID</param>
+        /// <param name="mode">Specify whether to search from title or ID</param>
+        public void GatherDoujinDetails(string searchTerm, SearchMode mode)
+        {
+            string doujinTitle = WebUtility.UrlEncode(searchTerm);
+
+            JObject jObject = GetJson(searchTerm, mode);
+
+            if (!jObject.HasValues)
+            {
+                MessageBox.Show("Doujin does not exist",
+                    "Invalid ID",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            switch (mode)
+            {
+                case SearchMode.Title:
+                    GatherDoujinDetailsFromTitle(searchTerm, jObject);
+                    break;
+                case SearchMode.ID:
+                    GatherDoujinDetailsFromID(searchTerm, jObject);
+                    break;
+                default:
+                    break;
+            }
+
+            HasValues = true;
+        }
+
+        private void GatherDoujinDetailsFromTitle(string doujinTitle, JObject jObject)
+        {
+            if (Title == "")
+                Title = doujinTitle;
+
+            // Assign the value of the first search result to jObject if 
+            // there is a search by Title
+            if (jObject["result"] != null && !jObject["result"].HasValues)
+                return;
+            else if (jObject["result"] != null)
+                jObject = (JObject)jObject["result"][0];
+
+            Tags = GetTagsFromTitle(doujinTitle, jObject, "tag");
+            Author = GetTagsFromTitle(doujinTitle, jObject, "artist");
+            ID = GetIDFromTitle(doujinTitle, jObject);
+        }
+
+        private void GatherDoujinDetailsFromID(string doujinID, JObject jObject)
+        {
+            string doujinTitle = GetTitleFromID(doujinID, jObject);
+
+            if (Title == "")
+                Title = doujinTitle;
+
+            GatherDoujinDetailsFromTitle(doujinTitle, jObject);
+        }
+
+        private JObject GetJson(string searchTerm, SearchMode mode)
+        {
+            string json = "";
+            string jsonUrl = "";
+
+            switch (mode)
+            {
+                case SearchMode.Title:
+                    jsonUrl = nhentaiSearchUrl + searchTerm;
+                    break;
+                case SearchMode.ID:
+                    jsonUrl = nhentaiGalleryUrl + searchTerm;
+                    break;
+                default:
+                    break;
+            }
 
             try
             {
                 using (WebClient wc = new WebClient())
                 {
-                    json = wc.DownloadString(nhentaiSearchUrl + doujinTitle);
+                    json = wc.DownloadString(jsonUrl);
                 }
             }
-            catch(WebException e)
+            catch (WebException e)
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString()); // probably 403 Forbidden
-
-                Tags = "BANNED";
-                Author = "BANNED";
-                return;
             }
 
-            JObject jObject = JObject.Parse(json);
+            if (String.IsNullOrEmpty(json))
+                return new JObject();
 
-            Tags = GetTagsFromTitle(doujinTitle, jObject);
-            Author = GetTagsFromNhentai(doujinTitle, jObject, "artist");
+            return JObject.Parse(json);
         }
 
-        private string GetTagsFromTitle(string doujinTitle, JObject jObject)
+        private string GetIDFromTitle(string doujinTitle, JObject jObject)
+        {
+            return jObject["id"].ToString();
+        }
+
+        private string GetTitleFromID(string doujinID, JObject jObject)
+        {
+            if (!jObject.HasValues)
+                return "";
+
+            return jObject["title"]["english"].ToString();
+        }
+
+        private string GetTagsFromTitle(string title, JObject jObject, string type)
         {
             string tags = "";
 
-            if ((tags = GetTagsFromExhentai(doujinTitle)) != "" ||
-                (tags = GetTagsFromNhentai(doujinTitle, jObject, "tag")) != "")
-            {
-                return tags;
-            }
-
-
-            return "ERR";
-        }
-
-        private string GetTagsFromNhentai(string title, JObject jObject, string type)
-        {
-            string tags = "";
-
-            if (((JArray)jObject["result"]).Count == 0)
-                return tags;
-
-            foreach (var tag in jObject["result"][0]["tags"])
+            foreach (var tag in jObject["tags"])
             {
                 if (tag["type"].ToString() == type)
                 {
@@ -80,11 +151,5 @@ namespace Doujin_Manager
             // Remove the last set of ", " from the tags string; maybe temporary
             return tags.Remove(tags.Length-2);
         }
-
-        private string GetTagsFromExhentai(string title)
-        {
-            return "";
-        }
-
     }
 }

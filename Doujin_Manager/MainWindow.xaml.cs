@@ -15,6 +15,7 @@ namespace Doujin_Manager
     public partial class MainWindow : Window
     {
         CentralViewModel dataContext;
+        Thread populateThread;
 
         public MainWindow()
         {
@@ -26,9 +27,13 @@ namespace Doujin_Manager
         {
             DoujinScrubber ds = new DoujinScrubber();
 
-            Thread newThread = new Thread(() => ds.PopulateDoujins(dataContext));
-            newThread.IsBackground = true;
-            newThread.Start();
+            if (populateThread != null && populateThread.IsAlive)
+                populateThread.Abort();
+
+            populateThread = new Thread(() => ds.PopulateDoujins(dataContext));
+            populateThread.IsBackground = true;
+            populateThread.Start();
+            
         }
 
         private void ChooseDoujinRootDirection()
