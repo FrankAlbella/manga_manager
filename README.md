@@ -9,7 +9,7 @@ A simple program for quickly viewing and searching through local archives of dou
 * Scans directory and finds potential doujins
 * Displays the cover image of the doujin (using the first image in the folder)
 * Displays the title of the doujin (using the name of the folder)
-* Automatically tags from nHentai
+* Automatically gathers tags from nHentai
 * Manual editing of doujin info
 
 ## Todo
