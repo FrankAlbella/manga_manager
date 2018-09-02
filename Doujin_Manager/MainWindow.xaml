@@ -39,7 +39,7 @@
                   ScrollViewer.CanContentScroll="False">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Open Doujin"/>
+                    <MenuItem Header="Open Doujin" Command="{Binding DoujinsViewModel.OpenCommand}"/>
                     <MenuItem Header="Edit Doujin" Command="{Binding DoujinsViewModel.EditCommand}"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
@@ -54,7 +54,7 @@
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>

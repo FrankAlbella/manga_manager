@@ -58,6 +58,8 @@ namespace Doujin_Manager
                     }
                 }
 
+                tagScrubber.GatherTagsAndAuthor(dirName);
+
                 try
                 {   // evokes the main (UI) thread to add the Doujin
                     Application.Current.Dispatcher.Invoke(new Action(() =>
@@ -72,9 +74,9 @@ namespace Doujin_Manager
                         {
                             CoverImage = coverImage,
                             Title = dirName,
-                            Author = "UNKOWN",
+                            Author = tagScrubber.Author,
                             Directory = directory,
-                            Tags = tagScrubber.GetTagsFromTitle(dirName)
+                            Tags = tagScrubber.Tags
                         };
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
@@ -84,7 +86,9 @@ namespace Doujin_Manager
                 catch
                 {
                     Debug.WriteLine("Failed to add doujin at: " + coverImagePath);
-                }  
+                }
+
+                System.Threading.Thread.Sleep(500);
             }
         }
 

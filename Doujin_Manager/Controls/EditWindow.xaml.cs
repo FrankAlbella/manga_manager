@@ -23,6 +23,7 @@ namespace Doujin_Manager.Controls
             tBoxCoverDir.Text = this.doujin.CoverImage.UriSource.AbsolutePath;
             tBoxTitle.Text = this.doujin.Title;
             tBoxAuthor.Text = this.doujin.Author;
+            tBoxTags.Text = this.doujin.Tags;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

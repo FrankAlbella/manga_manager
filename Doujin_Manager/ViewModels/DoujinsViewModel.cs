@@ -15,10 +15,22 @@ namespace Doujin_Manager.ViewModels
             get { _editCommand = new RelayCommand(param => EditDoujin()); return _editCommand; }
         }
 
+        private ICommand _openCommand;
+        public ICommand OpenCommand
+        {
+            get { _openCommand = new RelayCommand(param => OpenDoujinDirectory()); return _openCommand; }
+        }
+
         private void EditDoujin()
         {
             EditWindow editWindow = new EditWindow(SelectedDoujin);
             editWindow.Show();
+        }
+
+        private void OpenDoujinDirectory()
+        {
+            if (System.IO.Directory.Exists(SelectedDoujin.Directory))
+                System.Diagnostics.Process.Start("explorer.exe", SelectedDoujin.Directory);
         }
     }
 }

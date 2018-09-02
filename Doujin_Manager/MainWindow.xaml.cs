@@ -19,6 +19,7 @@ namespace Doujin_Manager
         public MainWindow()
         {
             InitializeComponent();
+            System.Diagnostics.Debug.WriteLine(System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
         }
 
         private void AsyncPopulateDoujinPanel()
@@ -26,6 +27,7 @@ namespace Doujin_Manager
             DoujinScrubber ds = new DoujinScrubber();
 
             Thread newThread = new Thread(() => ds.PopulateDoujins(dataContext));
+            newThread.IsBackground = true;
             newThread.Start();
         }
 
