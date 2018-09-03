@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Windows.Forms;
 
-namespace Doujin_Manager
+namespace Doujin_Manager.Util
 {
     class TagScrubber
     {

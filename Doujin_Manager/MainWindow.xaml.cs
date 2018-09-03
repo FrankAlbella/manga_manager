@@ -1,10 +1,9 @@
-﻿using Doujin_Manager.Controls;
+﻿using Doujin_Manager.Util;
 using Doujin_Manager.ViewModels;
 using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Doujin_Manager

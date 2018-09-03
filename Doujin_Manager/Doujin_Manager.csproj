@@ -90,9 +90,9 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DirectoryInfo.cs" />
-    <Compile Include="TagScrubber.cs" />
+    <Compile Include="Util\TagScrubber.cs" />
     <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
-    <Compile Include="DoujinScrubber.cs" />
+    <Compile Include="Util\DoujinScrubber.cs" />
     <Compile Include="ViewModels\DoujinsViewModel.cs" />
     <Compile Include="ViewModels\CentralViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
@@ -151,5 +151,6 @@
   <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

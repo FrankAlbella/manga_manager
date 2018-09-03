@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doujin_Manager.Util;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;

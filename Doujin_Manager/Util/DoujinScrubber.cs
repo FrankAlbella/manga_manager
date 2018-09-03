@@ -10,7 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace Doujin_Manager
+namespace Doujin_Manager.Util
 {
     class DoujinScrubber
     {
