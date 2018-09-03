@@ -1,5 +1,5 @@
-﻿using Doujin_Manager.Controls;
-using Doujin_Manager.ViewModels;
+﻿using Doujin_Manager.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -95,6 +95,7 @@ namespace Doujin_Manager
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
                         dataContext.DoujinInfoViewModel.Count = dataContext.DoujinsViewModel.Doujins.Count.ToString();
+
                     }));
                 }
                 catch
@@ -102,10 +103,29 @@ namespace Doujin_Manager
                     Debug.WriteLine("Failed to add doujin at: " + coverImagePath);
                 }
 
+                tagScrubber.Clear();
+
                 // Add delay to prevent sending too many requests to nHentai
                 // currently still results in a ban (403 Forbidden)
                 //System.Threading.Thread.Sleep(500);
             }
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                CacheToJson(dataContext);
+            }));
+        }
+
+        private void CacheToJson(CentralViewModel dataContext)
+        {
+            List<Doujin> doujins = dataContext.DoujinsViewModel.Doujins.ToList<Doujin>();
+            string[] aDoujins = new string[doujins.Count];
+
+            for (int i = 0; i < doujins.Count; i++)
+            {
+                aDoujins[i] = JsonConvert.SerializeObject(doujins[i], Formatting.Indented);
+            }
+
+            File.WriteAllLines(DirectoryInfo.cacheFilePath, aDoujins);
         }
 
         private string CompressImage(string imagePath)

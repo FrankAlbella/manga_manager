@@ -13,6 +13,7 @@ namespace Doujin_Manager
         public string ID { get; set; } = "000000";
         public bool HasValues { get; set; } = false;
 
+        private bool shouldAbort = false;
         private readonly string nhentaiSearchUrl = @"https://nhentai.net/api/galleries/search?query=";
         private readonly string nhentaiGalleryUrl = @"https://nhentai.net/api/gallery/";
 
@@ -33,6 +34,9 @@ namespace Doujin_Manager
             string doujinTitle = WebUtility.UrlEncode(searchTerm);
 
             JObject jObject = GetJson(searchTerm, mode);
+
+            if (shouldAbort)
+                return;
 
             if (!jObject.HasValues)
             {
@@ -56,6 +60,15 @@ namespace Doujin_Manager
             }
 
             HasValues = true;
+        }
+
+        public void Clear()
+        {
+            Title = "";
+            Author = "";
+            Tags = "";
+            ID = "000000";
+            HasValues = false;
         }
 
         private void GatherDoujinDetailsFromTitle(string doujinTitle, JObject jObject)
@@ -87,6 +100,9 @@ namespace Doujin_Manager
 
         private JObject GetJson(string searchTerm, SearchMode mode)
         {
+            if (shouldAbort)
+                return new JObject();
+
             string json = "";
             string jsonUrl = "";
 
@@ -112,6 +128,7 @@ namespace Doujin_Manager
             catch (WebException e)
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString()); // probably 403 Forbidden
+                shouldAbort = true;
             }
 
             if (String.IsNullOrEmpty(json))
