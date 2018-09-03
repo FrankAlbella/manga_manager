@@ -90,6 +90,7 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="DirectoryInfo.cs" />
+    <Compile Include="Util\ImageCompressor.cs" />
     <Compile Include="Util\TagScrubber.cs" />
     <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
     <Compile Include="Util\DoujinScrubber.cs" />

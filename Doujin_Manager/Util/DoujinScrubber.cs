@@ -20,6 +20,7 @@ namespace Doujin_Manager.Util
                 return;
 
             string[] allSubDirectories;
+            ImageCompressor imageCompressor = new ImageCompressor();
 
             try
             {
@@ -65,7 +66,7 @@ namespace Doujin_Manager.Util
                         file.ToLower().EndsWith(".png") ||
                         file.ToLower().EndsWith(".jpeg"))
                     {
-                        coverImagePath = CompressImage(file);
+                        coverImagePath = imageCompressor.CompressImage(file, 40);
                         dirName = Path.GetFileName(Path.GetDirectoryName(file));
                         break;
                     }
@@ -126,74 +127,6 @@ namespace Doujin_Manager.Util
             }
 
             File.WriteAllLines(DirectoryInfo.cacheFilePath, aDoujins);
-        }
-
-        private string CompressImage(string imagePath)
-        {
-            string fileName = Path.GetFileName(imagePath);
-            string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
-            string fileCompressedPath = DirectoryInfo.thumbnailDir + "\\" + lastFolderName + " - "+ fileName;
-
-            if (File.Exists(fileCompressedPath))
-                return fileCompressedPath;
-
-            try
-            {
-                Bitmap image = new Bitmap(imagePath);
-                SaveCompressedImage(fileCompressedPath, image, 40);
-                Debug.WriteLine("Image compressed: " + fileCompressedPath);
-            }
-            catch
-            {
-                Debug.WriteLine("Image failed to be compressed: " + imagePath);
-                return imagePath;
-            }
-
-            return fileCompressedPath;
-        }
-
-        // More quality = higher quality image
-        private void SaveCompressedImage(string path, Bitmap image, int quality)
-        {
-            if (quality < 0 || quality > 100)
-                throw new ArgumentOutOfRangeException("Quality must be between 0 and 100.");
-
-            // Encoder parameter for image quality 
-            EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
-
-            // Image codec 
-            ImageCodecInfo codec = GetEncoderInfo(GetMimeType(path));
-
-            EncoderParameters encoderParams = new EncoderParameters(1);
-            encoderParams.Param[0] = qualityParam;
-
-            image.Save(path, codec, encoderParams);
-        }
-
-        private string GetMimeType(string path)
-        {
-            switch (Path.GetExtension(path).ToLower())
-            {
-                case ".jpeg":
-                case ".jpg":
-                    return "image/jpeg";
-                case ".png":
-                    return "image/png";
-                default:
-                    return "";
-            }
-        }
-
-        private ImageCodecInfo GetEncoderInfo(string mimeType)
-        {
-            // Get image codecs for all image formats 
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-
-            // Find the correct image codec 
-            for (int i = 0; i < codecs.Length; i++)
-                if (codecs[i].MimeType == mimeType)
-                    return codecs[i];
-            return null;
         }
     }
 }
