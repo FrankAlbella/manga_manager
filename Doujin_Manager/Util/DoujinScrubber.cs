@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -79,12 +77,16 @@ namespace Doujin_Manager.Util
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
                         BitmapImage coverImage = new BitmapImage();
+
                         coverImage.BeginInit();
-                        coverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
-                        coverImage.CacheOption = BitmapCacheOption.None;
-                        coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                        coverImage.DecodePixelWidth = 140;
+                            coverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
+                            coverImage.CacheOption = BitmapCacheOption.None;
+                            coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            coverImage.DecodePixelWidth = 140;
                         coverImage.EndInit();
+
+                        coverImage.Freeze();
+
                         Doujin doujin = new Doujin
                         {
                             CoverImage = coverImage,
