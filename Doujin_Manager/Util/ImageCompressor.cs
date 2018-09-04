@@ -15,7 +15,7 @@ namespace Doujin_Manager.Util
         /// <param name="imagePath">Path to the image file.</param>
         /// <param name="quality">A value from 1-100 determining the quality. 100 = max quality; 1 = min quality.</param>
         /// <returns>The file path of the compressed image.</returns>
-        public string CompressImage(string imagePath, int quality)
+        public string CompressImage(string imagePath, byte quality)
         {
             string fileName = Path.GetFileName(imagePath);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
@@ -40,13 +40,13 @@ namespace Doujin_Manager.Util
         }
 
         // More quality = higher quality image
-        private void SaveCompressedImage(string path, Bitmap image, int quality)
+        private void SaveCompressedImage(string path, Bitmap image, byte quality)
         {
             if (quality < 0 || quality > 100)
                 throw new ArgumentOutOfRangeException("Quality must be between 0 and 100.");
 
             // Encoder parameter for image quality 
-            EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, quality);
+            EncoderParameter qualityParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
 
             // Image codec 
             ImageCodecInfo codec = GetEncoderInfo(GetMimeType(path));
