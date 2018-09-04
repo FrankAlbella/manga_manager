@@ -129,7 +129,7 @@ namespace Doujin_Manager.Util
                 aDoujins[i] = JsonConvert.SerializeObject(doujins[i], Formatting.Indented);
             }
 
-            File.WriteAllLines(DirectoryInfo.cacheFilePath, aDoujins);
+            File.WriteAllLines(PathUtil.cacheFilePath, aDoujins);
         }
     }
 }

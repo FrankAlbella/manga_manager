@@ -55,8 +55,8 @@ namespace Doujin_Manager
             dataContext = this.DataContext as CentralViewModel;
 
             // If appdata folder doesn't exist, create it and the thumbnail folder
-            if (!Directory.Exists(DirectoryInfo.appdataDir))
-                Directory.CreateDirectory(DirectoryInfo.thumbnailDir);
+            if (!Directory.Exists(PathUtil.appdataDir))
+                Directory.CreateDirectory(PathUtil.thumbnailDir);
 
             // Open folder select dialog if no folder location is saved
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
@@ -93,7 +93,7 @@ namespace Doujin_Manager
 
             dataContext.DoujinsViewModel.Doujins.Clear();
             GC.Collect();
-            string[] thumbsnails = Directory.GetFiles(DirectoryInfo.thumbnailDir);
+            string[] thumbsnails = Directory.GetFiles(PathUtil.thumbnailDir);
 
             foreach (string thumbnail in thumbsnails)
             {

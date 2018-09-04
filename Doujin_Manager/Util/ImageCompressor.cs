@@ -19,7 +19,7 @@ namespace Doujin_Manager.Util
         {
             string fileName = Path.GetFileName(imagePath);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
-            string fileCompressedPath = DirectoryInfo.thumbnailDir + "\\" + lastFolderName + " - " + fileName;
+            string fileCompressedPath = PathUtil.thumbnailDir + "\\" + lastFolderName + " - " + fileName;
 
             if (File.Exists(fileCompressedPath))
                 return fileCompressedPath;

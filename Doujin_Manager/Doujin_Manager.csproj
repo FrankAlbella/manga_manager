@@ -89,7 +89,7 @@
     <Compile Include="Controls\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DirectoryInfo.cs" />
+    <Compile Include="Util\PathUtil.cs" />
     <Compile Include="Util\ImageCompressor.cs" />
     <Compile Include="Util\TagScrubber.cs" />
     <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
