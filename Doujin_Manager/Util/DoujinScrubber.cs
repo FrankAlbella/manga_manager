@@ -78,12 +78,13 @@ namespace Doujin_Manager.Util
                 {   // evokes the main (UI) thread to add the Doujin
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        BitmapImage coverImage = new BitmapImage(new Uri(coverImagePath))
-                        {
-                            CacheOption = BitmapCacheOption.None,
-                            CreateOptions = BitmapCreateOptions.IgnoreImageCache,
-                            DecodePixelWidth = 140
-                        };
+                        BitmapImage coverImage = new BitmapImage();
+                        coverImage.BeginInit();
+                        coverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
+                        coverImage.CacheOption = BitmapCacheOption.None;
+                        coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                        coverImage.DecodePixelWidth = 140;
+                        coverImage.EndInit();
                         Doujin doujin = new Doujin
                         {
                             CoverImage = coverImage,

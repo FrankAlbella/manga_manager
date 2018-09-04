@@ -30,6 +30,7 @@ namespace Doujin_Manager
                 populateThread.Abort();
 
             populateThread = new Thread(() => ds.PopulateDoujins(dataContext));
+            populateThread.Name = "DoujinScrubber Thread";
             populateThread.IsBackground = true;
             populateThread.Start();
             
