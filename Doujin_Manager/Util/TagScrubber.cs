@@ -31,11 +31,14 @@ namespace Doujin_Manager.Util
         /// <param name="mode">Specify whether to search from title or ID</param>
         public void GatherDoujinDetails(string searchTerm, SearchMode mode)
         {
+            if (shouldAbort)
+                return;
+
             string doujinTitle = WebUtility.UrlEncode(searchTerm);
 
             JObject jObject = GetJson(searchTerm, mode);
 
-            if (shouldAbort)
+            if (jObject == null)
                 return;
 
             if (!jObject.HasValues)
@@ -101,7 +104,7 @@ namespace Doujin_Manager.Util
         private JObject GetJson(string searchTerm, SearchMode mode)
         {
             if (shouldAbort)
-                return new JObject();
+                return null;
 
             string json = "";
             string jsonUrl = "";
@@ -132,7 +135,7 @@ namespace Doujin_Manager.Util
             }
 
             if (String.IsNullOrEmpty(json))
-                return new JObject();
+                return null;
 
             return JObject.Parse(json);
         }
