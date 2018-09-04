@@ -26,7 +26,7 @@ namespace Doujin_Manager
             set { this._author = value; NotifyPropertyChanged("Author"); }
         }
 
-        private string _tags = "[Unimplemented]";
+        private string _tags;
         public string Tags
         {
             get { return _tags; }

@@ -18,7 +18,7 @@ namespace Doujin_Manager.Util
                 return;
 
             string[] allSubDirectories;
-            ImageCompressor imageCompressor = new ImageCompressor();
+            
 
             try
             {
@@ -36,6 +36,8 @@ namespace Doujin_Manager.Util
             List<string> potentialDoujinDirectories = new List<string>();
 
             TagScrubber tagScrubber = new TagScrubber();
+
+            ImageCompressor imageCompressor = new ImageCompressor();
 
             // Search all subdirectories which contain an image
             foreach (string directory in allSubDirectories)
@@ -111,7 +113,7 @@ namespace Doujin_Manager.Util
 
                 // Add delay to prevent sending too many requests to nHentai
                 // currently still results in a ban (403 Forbidden)
-                //System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(500);
             }
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {

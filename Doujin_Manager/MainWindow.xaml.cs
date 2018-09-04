@@ -33,7 +33,6 @@ namespace Doujin_Manager
             populateThread.Name = "DoujinScrubber Thread";
             populateThread.IsBackground = true;
             populateThread.Start();
-            
         }
 
         private void ChooseDoujinRootDirection()
@@ -52,7 +51,7 @@ namespace Doujin_Manager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            dataContext = this.DataContext as CentralViewModel;
+            dataContext = (CentralViewModel)this.DataContext;
 
             // If appdata folder doesn't exist, create it and the thumbnail folder
             if (!Directory.Exists(PathUtil.appdataDir))
