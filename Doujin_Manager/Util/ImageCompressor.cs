@@ -46,7 +46,7 @@ namespace Doujin_Manager.Util
                 throw new ArgumentOutOfRangeException("Quality must be between 0 and 100.");
 
             // Encoder parameter for image quality 
-            EncoderParameter qualityParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
+            EncoderParameter qualityParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, (long)quality);
 
             // Image codec 
             ImageCodecInfo codec = GetEncoderInfo(GetMimeType(path));

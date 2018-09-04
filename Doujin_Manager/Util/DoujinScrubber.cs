@@ -104,6 +104,10 @@ namespace Doujin_Manager.Util
 
                     }));
                 }
+                catch(NotSupportedException)
+                {
+                    Debug.WriteLine("Image corrupted or not supported: " + coverImagePath);
+                }
                 catch
                 {
                     Debug.WriteLine("Failed to add doujin at: " + coverImagePath);
