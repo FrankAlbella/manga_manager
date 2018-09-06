@@ -2,7 +2,7 @@
 A simple program for quickly viewing and searching through local archives of doujins.
 
 ## Requirements 
-* .NET Framework 4.6.1
+* .NET Framework 4.7.1
 * Newtonsoft.Json 11.0.2
 
 ## Current Features
