@@ -22,9 +22,9 @@ namespace Doujin_Manager.Controls
         private void CoverImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             CentralViewModel viewModel = this.DataContext as CentralViewModel;
-            viewModel.DoujinInfoViewModel.Author = this.doujin.Author;
-            viewModel.DoujinInfoViewModel.Title = this.doujin.Title;
-            viewModel.DoujinInfoViewModel.Tags = "[Unimplemented]";
+            //viewModel.DoujinInfoViewModel.Author = this.doujin.Author;
+            //viewModel.DoujinInfoViewModel.Title = this.doujin.Title;
+            //viewModel.DoujinInfoViewModel.Tags = "[Unimplemented]";
         }
 
         private void OpenDirectoryMenuItem_Click(object sender, RoutedEventArgs e)

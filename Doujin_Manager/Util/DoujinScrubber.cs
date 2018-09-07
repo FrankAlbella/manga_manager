@@ -100,7 +100,6 @@ namespace Doujin_Manager.Util
                         };
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
-                        dataContext.DoujinInfoViewModel.Count = dataContext.DoujinsViewModel.Doujins.Count.ToString();
 
                     }));
                 }

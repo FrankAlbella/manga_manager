@@ -23,10 +23,10 @@
                     VerticalAlignment="Top"
                     Height="80"
                     Margin="5,20,5,0">
-            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Title}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Author}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Tags}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Path=DoujinInfoViewModel.Count}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Count: {0}}" FontWeight="Bold"/>
         </StackPanel>
 
         <ListView x:Name="doujinListView"
