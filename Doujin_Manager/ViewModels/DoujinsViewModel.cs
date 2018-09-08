@@ -1,13 +1,44 @@
 ﻿using Doujin_Manager.Controls;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Doujin_Manager.ViewModels
 {
-    class DoujinsViewModel
+    class DoujinsViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Doujin> Doujins { get; set; } = new ObservableCollection<Doujin>();
+        
         public Doujin SelectedDoujin { get; set; }
+
+        public DoujinsViewModel()
+        {
+            _filteredDoujinsView = new ListCollectionView(Doujins);
+        }
+
+        private ListCollectionView _filteredDoujinsView;
+        public ICollectionView FilteredDoujinsView
+        {
+            get { return this._filteredDoujinsView; }
+        }
+
+        private string _textSearch;
+        public string TextSearch
+        {
+            get { return _textSearch; }
+            set
+            {
+                _textSearch = value;
+                NotifyPropertyChanged("TextSearch");
+
+                if (String.IsNullOrEmpty(value))
+                    FilteredDoujinsView.Filter = null;
+                else
+                    FilteredDoujinsView.Filter = new Predicate<object>(o => ((Doujin)o).Tags.Contains(value));
+            }
+        }
 
         private ICommand _editCommand;
         public ICommand EditCommand
@@ -31,6 +62,16 @@ namespace Doujin_Manager.ViewModels
         {
             if (System.IO.Directory.Exists(SelectedDoujin.Directory))
                 System.Diagnostics.Process.Start("explorer.exe", SelectedDoujin.Directory);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

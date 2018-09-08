@@ -98,6 +98,7 @@
     <Compile Include="ViewModels\DoujinsViewModel.cs" />
     <Compile Include="ViewModels\CentralViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Page Include="Controls\DoujinControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

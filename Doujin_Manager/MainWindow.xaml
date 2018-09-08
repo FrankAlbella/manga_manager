@@ -8,6 +8,10 @@
         DataContext="{StaticResource DoujinViewModel}"
         Title="Doujin Manager" Height="600" Width="900" Loaded="Window_Loaded">
     <Grid>
+        <Grid.InputBindings>
+            <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
+        </Grid.InputBindings>
+            
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
@@ -31,7 +35,7 @@
 
         <ListView x:Name="doujinListView"
                   Margin="0,100,0,0"
-                  ItemsSource="{Binding Path=DoujinsViewModel.Doujins}"
+                  ItemsSource="{Binding Path=DoujinsViewModel.FilteredDoujinsView}"
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   VirtualizingPanel.IsVirtualizing="True"
@@ -58,5 +62,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <DockPanel VerticalAlignment="Bottom" Height="50" Background="#FFD4D4D4" Visibility="{Binding SearchViewModel.Visibility}">
+            <TextBox VerticalContentAlignment="Center" Height="30" Margin="5" Text="{Binding DoujinsViewModel.TextSearch,UpdateSourceTrigger=PropertyChanged}" />
+        </DockPanel>
     </Grid>
 </Window>
