@@ -1,4 +1,5 @@
 ﻿using Doujin_Manager.Util;
+using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows;
@@ -30,9 +31,10 @@ namespace Doujin_Manager.Controls
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if(File.Exists(tBoxCoverDir.Text))
-                this.doujin.CoverImage = new BitmapImage(new Uri(tBoxCoverDir.Text));
-
+            if(this.doujin.CoverImage.UriSource.AbsolutePath != tBoxCoverDir.Text
+                && File.Exists(tBoxCoverDir.Text))
+                this.doujin.CreateAndSetCoverImage(tBoxCoverDir.Text);
+                
             if (this.doujin.ID != tBoxID.Text)
             {
                 TagScrubber tagScrubber = new TagScrubber();
@@ -53,6 +55,20 @@ namespace Doujin_Manager.Controls
                 this.doujin.Tags = tBoxTags.Text;
             }
             this.Close();
+        }
+
+        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            if (ofd.ShowDialog() == true)
+                tBoxCoverDir.Text = ofd.FileName;
+        }
+
+        private void tBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+                btnSave_Click(this, e);
         }
     }
 }

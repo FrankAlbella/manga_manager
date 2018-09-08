@@ -78,26 +78,16 @@ namespace Doujin_Manager.Util
                 {   // evokes the main (UI) thread to add the Doujin
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        BitmapImage coverImage = new BitmapImage();
-
-                        coverImage.BeginInit();
-                            coverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
-                            coverImage.CacheOption = BitmapCacheOption.None;
-                            coverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            coverImage.DecodePixelWidth = 140;
-                        coverImage.EndInit();
-
-                        coverImage.Freeze();
-
                         Doujin doujin = new Doujin
                         {
-                            CoverImage = coverImage,
                             Title = dirName,
                             Author = tagScrubber.Author,
                             Directory = directory,
                             Tags = tagScrubber.Tags,
                             ID = tagScrubber.ID
                         };
+
+                        doujin.CreateAndSetCoverImage(coverImagePath);
 
                         dataContext.DoujinsViewModel.Doujins.Add(doujin);
 

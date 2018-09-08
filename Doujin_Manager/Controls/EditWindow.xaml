@@ -27,11 +27,30 @@
         <TextBlock Text="Tags:" FontWeight="Bold" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"/>
 
         <TextBox x:Name="tBoxID" Grid.Column="1" Grid.Row="0" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxCoverDir" Grid.Column="1" Grid.Row="1" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxTitle" Grid.Column="1" Grid.Row="2" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxAuthor" Grid.Column="1" Grid.Row="3" Height="23" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tBoxTags" Grid.Column="1" Grid.Row="4" Height="23" VerticalContentAlignment="Center"/>
 
-        <Button x:Name="btnSave" Content="Save" Width="57" Height="25" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Click="btnSave_Click"/>
+        <TextBox x:Name="tBoxCoverDir" Grid.Column="1" Grid.Row="1" Height="23" VerticalContentAlignment="Center" Margin="0,0,62,0" KeyDown="tBox_KeyDown"/>
+        <Button x:Name="btnBrowse"
+                Content="Browse"
+                Grid.Column="1"
+                Grid.Row="1"
+                Width="57"
+                Height="25"
+                HorizontalAlignment="Right"
+                Click="btnBrowse_Click"/>
+
+        <TextBox x:Name="tBoxTitle" Grid.Column="1" Grid.Row="2" Height="23" VerticalContentAlignment="Center" KeyDown="tBox_KeyDown"/>
+        <TextBox x:Name="tBoxAuthor" Grid.Column="1" Grid.Row="3" Height="23" VerticalContentAlignment="Center" KeyDown="tBox_KeyDown"/>
+        <TextBox x:Name="tBoxTags" Grid.Column="1" Grid.Row="4" Height="23" VerticalContentAlignment="Center" KeyDown="tBox_KeyDown"/>
+
+        <Button x:Name="btnSave"
+                Content="Save"
+                Grid.Column="1"
+                Grid.Row="5"
+                Width="57"
+                Height="25"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,10,10"
+                Click="btnSave_Click"/>
     </Grid>
 </Window>

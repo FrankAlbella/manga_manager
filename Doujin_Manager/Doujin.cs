@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager
@@ -45,6 +46,22 @@ namespace Doujin_Manager
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public void CreateAndSetCoverImage(string coverImagePath)
+        {
+            BitmapImage newCoverImage = new BitmapImage();
+
+            newCoverImage.BeginInit();
+                newCoverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
+                newCoverImage.CacheOption = BitmapCacheOption.None;
+                newCoverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                newCoverImage.DecodePixelWidth = 140;
+            newCoverImage.EndInit();
+
+            newCoverImage.Freeze();
+
+            this.CoverImage = newCoverImage;
         }
     }
 }
