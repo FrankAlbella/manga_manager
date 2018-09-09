@@ -24,12 +24,12 @@ namespace Doujin_Manager
 
         private void AsyncPopulateDoujinPanel()
         {
-            DoujinScrubber ds = new DoujinScrubber();
+            DoujinScrubber ds = new DoujinScrubber(dataContext);
 
             if (populateThread != null && populateThread.IsAlive)
                 populateThread.Abort();
 
-            populateThread = new Thread(() => ds.PopulateDoujins(dataContext));
+            populateThread = new Thread(() => ds.PopulateDoujins());
             populateThread.Name = "DoujinScrubber Thread";
             populateThread.IsBackground = true;
             populateThread.Start();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
@@ -50,18 +51,39 @@ namespace Doujin_Manager
 
         public void CreateAndSetCoverImage(string coverImagePath)
         {
+            this.CoverImage = CreateBitmapImageFromPath(coverImagePath);
+        }
+
+        public BitmapImage CreateBitmapImageFromPath(string path)
+        {
             BitmapImage newCoverImage = new BitmapImage();
 
             newCoverImage.BeginInit();
-                newCoverImage.UriSource = new Uri(coverImagePath, UriKind.Absolute);
-                newCoverImage.CacheOption = BitmapCacheOption.None;
-                newCoverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                newCoverImage.DecodePixelWidth = 140;
+            newCoverImage.UriSource = new Uri(path, UriKind.Absolute);
+            newCoverImage.CacheOption = BitmapCacheOption.None;
+            newCoverImage.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            newCoverImage.DecodePixelWidth = 140;
             newCoverImage.EndInit();
 
             newCoverImage.Freeze();
 
-            this.CoverImage = newCoverImage;
+            return newCoverImage;
+        }
+
+        [JsonConstructor]
+        public Doujin(string CoverImage, string Title, string Author, string Tags, string Directory, string ID)
+        {
+            this.CoverImage = CreateBitmapImageFromPath(CoverImage);
+            this.Title = Title;
+            this.Author = Author;
+            this.Tags = Tags;
+            this.Directory = Directory;
+            this.ID = ID;
+        }
+
+        public Doujin()
+        {
+
         }
     }
 }

@@ -1,56 +1,43 @@
 ﻿using Doujin_Manager.ViewModels;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager.Util
 {
     class DoujinScrubber
     {
-        public void PopulateDoujins(CentralViewModel dataContext)
+        private readonly CentralViewModel dataContext;
+        private readonly Cache cache;
+
+        public DoujinScrubber(CentralViewModel dataContext)
+        {
+            this.dataContext = dataContext;
+
+            cache = new Cache();
+        }
+
+        public void PopulateDoujins()
         {
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
                 return;
 
-            string[] allSubDirectories;
-            
+            List<string> potentialDoujinDirectories = GetPotentialDoujinDirectories();
 
-            try
-            {
-                allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
-            }
-            catch(UnauthorizedAccessException e)
-            {
-                MessageBox.Show(e.Message,
-                    "Unauthorized Access Error",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+            if (potentialDoujinDirectories == null)
                 return;
-            }
 
-            List<string> potentialDoujinDirectories = new List<string>();
+            List<string> doujinsFoundInCache = GetDoujinsFoundInCache(potentialDoujinDirectories);
+
+            potentialDoujinDirectories = potentialDoujinDirectories.Except(doujinsFoundInCache).ToList<string>();
+
+            Invoke_AddCachedDoujinsToViewModel(doujinsFoundInCache);
 
             TagScrubber tagScrubber = new TagScrubber();
-
             ImageCompressor imageCompressor = new ImageCompressor();
-
-            // Search all subdirectories which contain an image
-            foreach (string directory in allSubDirectories)
-            {
-                string[] files = Directory.GetFiles(directory);
-
-                if (files.Any(s => s.ToLower().EndsWith(".jpg")) ||
-                    files.Any(s => s.ToLower().EndsWith(".png")) ||
-                    files.Any(s => s.ToLower().EndsWith(".jpeg")))
-                {
-                    potentialDoujinDirectories.Add(directory);
-                }
-            }
 
             // Search for the first image in the directory 
             // and set it as cover image + add it to the panel
@@ -75,23 +62,8 @@ namespace Doujin_Manager.Util
                 tagScrubber.GatherDoujinDetails(dirName, TagScrubber.SearchMode.Title);
 
                 try
-                {   // evokes the main (UI) thread to add the Doujin
-                    Application.Current.Dispatcher.Invoke(new Action(() =>
-                    {
-                        Doujin doujin = new Doujin
-                        {
-                            Title = dirName,
-                            Author = tagScrubber.Author,
-                            Directory = directory,
-                            Tags = tagScrubber.Tags,
-                            ID = tagScrubber.ID
-                        };
-
-                        doujin.CreateAndSetCoverImage(coverImagePath);
-
-                        dataContext.DoujinsViewModel.Doujins.Add(doujin);
-
-                    }));
+                {
+                    Invoke_AddDoujinToViewModel(coverImagePath, dirName, directory, tagScrubber);
                 }
                 catch(NotSupportedException)
                 {
@@ -106,25 +78,106 @@ namespace Doujin_Manager.Util
 
                 // Add delay to prevent sending too many requests to nHentai
                 // currently still results in a ban (403 Forbidden)
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(1000);
             }
+
+            Invoke_SaveToCache(dataContext.DoujinsViewModel.Doujins.ToList<Doujin>());
+        }
+
+        private List<string> GetDoujinsFoundInCache(List<string> doujinDirectories)
+        {
+            var doujinsFoundInCache = from first in doujinDirectories
+                                      join second in cache.CachedDoujins
+                                      on first equals second.Directory
+                                      select first;
+
+            return doujinsFoundInCache.ToList<string>();
+        }
+
+        private void Invoke_SaveToCache(List<Doujin> doujins)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() => cache.Save(doujins)));
+        }
+
+        private void Invoke_AddDoujinToViewModel(Doujin doujin)
+        {
+            Invoke_AddDoujinToViewModel(doujin.CoverImage.UriSource.ToString(), doujin.Title, doujin.Author, doujin.Directory, doujin.Tags, doujin.ID);
+        }
+
+        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string directory, TagScrubber tagScrubber)
+        {
+            Invoke_AddDoujinToViewModel(coverImagePath, title, tagScrubber.Author, directory, tagScrubber.Tags, tagScrubber.ID);
+        }
+
+        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string author, string directory, string tags, string id)
+        {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                CacheToJson(dataContext);
+                Doujin doujin = new Doujin
+                {
+                    Title = title,
+                    Author = author,
+                    Directory = directory,
+                    Tags = tags,
+                    ID = id
+                };
+
+                doujin.CreateAndSetCoverImage(coverImagePath);
+
+                dataContext.DoujinsViewModel.Doujins.Add(doujin);
+
             }));
         }
 
-        private void CacheToJson(CentralViewModel dataContext)
+        private void Invoke_AddCachedDoujinsToViewModel(List<string> doujinsFoundInCache)
         {
-            List<Doujin> doujins = dataContext.DoujinsViewModel.Doujins.ToList<Doujin>();
-            string[] aDoujins = new string[doujins.Count];
+            var cachedDoujinsQuery =   from first in doujinsFoundInCache
+                                        join second in cache.CachedDoujins
+                                        on first equals second.Directory
+                                        select second;
 
-            for (int i = 0; i < doujins.Count; i++)
+            List<Doujin> cachedDoujins = cachedDoujinsQuery.ToList<Doujin>();
+
+            foreach (Doujin doujin in cachedDoujins)
             {
-                aDoujins[i] = JsonConvert.SerializeObject(doujins[i], Formatting.Indented);
+                Invoke_AddDoujinToViewModel(doujin);
+            }
+        }
+
+        private List<string> GetPotentialDoujinDirectories()
+        {
+            string[] allSubDirectories;
+
+
+            try
+            {
+                allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                MessageBox.Show(e.Message,
+                    "Unauthorized Access Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return null;
             }
 
-            File.WriteAllLines(PathUtil.cacheFilePath, aDoujins);
+            List<string> potentialDoujinDirectories = new List<string>();
+
+            // Search all subdirectories which contain an image
+            foreach (string directory in allSubDirectories)
+            {
+                string[] files = Directory.GetFiles(directory);
+
+                if (files.Any(s => s.ToLower().EndsWith(".jpg")) ||
+                    files.Any(s => s.ToLower().EndsWith(".png")) ||
+                    files.Any(s => s.ToLower().EndsWith(".jpeg")))
+                {
+                    potentialDoujinDirectories.Add(directory);
+                }
+            }
+
+            return potentialDoujinDirectories;
         }
     }
 }
