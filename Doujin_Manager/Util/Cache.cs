@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Doujin_Manager.Util
 {
@@ -23,7 +24,7 @@ namespace Doujin_Manager.Util
 
         public void Save(List<Doujin> doujins)
         {
-            File.WriteAllText(PathUtil.cacheFilePath, JsonConvert.SerializeObject(doujins, Formatting.Indented));
+            File.WriteAllText(PathUtil.cacheFilePath, JsonConvert.SerializeObject(doujins.Union<Doujin>(CachedDoujins), Formatting.Indented));
         }
 
         private List<Doujin> GetDoujinsFromCache()
