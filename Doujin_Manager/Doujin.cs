@@ -85,5 +85,18 @@ namespace Doujin_Manager
         {
 
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Doujin doujin)
+                return doujin.Directory == this.Directory;
+
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Directory.GetHashCode();
+        }
     }
 }

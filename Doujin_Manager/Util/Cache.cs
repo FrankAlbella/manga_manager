@@ -10,7 +10,7 @@ namespace Doujin_Manager.Util
         private readonly string _jsonFileContents;
         public string JsonFileContents{ get { return _jsonFileContents; } }
 
-        private readonly List<Doujin> _cachedDoujins; 
+        private readonly List<Doujin> _cachedDoujins = new List<Doujin>();
         public List<Doujin> CachedDoujins { get { return _cachedDoujins; } }
 
         public Cache()
