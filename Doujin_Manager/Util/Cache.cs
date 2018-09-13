@@ -14,6 +14,9 @@ namespace Doujin_Manager.Util
 
         public Cache()
         {
+            if (!File.Exists(PathUtil.cacheFilePath))
+                Save(new List<Doujin>());
+
             _jsonFileContents = GetSerializedJsonFromFile();
             _cachedDoujins = GetDoujinsFromCache();
         }

@@ -30,11 +30,14 @@ namespace Doujin_Manager.Util
             if (potentialDoujinDirectories == null)
                 return;
 
-            List<string> doujinsFoundInCache = GetDoujinsFoundInCache(potentialDoujinDirectories);
+            if (cache.CachedDoujins != null)
+            {
+                List<string> doujinsFoundInCache = GetDoujinsFoundInCache(potentialDoujinDirectories);
 
-            potentialDoujinDirectories = potentialDoujinDirectories.Except(doujinsFoundInCache).ToList<string>();
+                potentialDoujinDirectories = potentialDoujinDirectories.Except(doujinsFoundInCache).ToList<string>();
 
-            Invoke_AddCachedDoujinsToViewModel(doujinsFoundInCache);
+                Invoke_AddCachedDoujinsToViewModel(doujinsFoundInCache);
+            }   
 
             TagScrubber tagScrubber = new TagScrubber();
             ImageCompressor imageCompressor = new ImageCompressor();

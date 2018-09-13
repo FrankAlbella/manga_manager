@@ -133,6 +133,10 @@ namespace Doujin_Manager.Util
                 System.Diagnostics.Debug.WriteLine(e.ToString()); // probably 403 Forbidden
                 shouldAbort = true;
             }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
 
             if (String.IsNullOrEmpty(json))
                 return null;
