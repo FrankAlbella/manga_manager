@@ -1,6 +1,7 @@
 ﻿using Doujin_Manager.Util;
 using Doujin_Manager.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -103,6 +104,12 @@ namespace Doujin_Manager
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Cache cache = new Cache();
+            cache.Save(new List<Doujin>(this.dataContext.DoujinsViewModel.Doujins));
         }
     }
 }

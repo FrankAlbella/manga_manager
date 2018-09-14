@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
-        Title="Doujin Manager" Height="600" Width="900" Loaded="Window_Loaded">
+        Title="Doujin Manager" 
+        Height="600" 
+        Width="900" 
+        Loaded="Window_Loaded" 
+        Closing="Window_Closing">
     <Grid>
         <Grid.InputBindings>
             <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
