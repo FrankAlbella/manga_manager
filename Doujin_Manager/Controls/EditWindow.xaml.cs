@@ -60,7 +60,7 @@ namespace Doujin_Manager.Controls
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             if (ofd.ShowDialog() == true)
                 tBoxCoverDir.Text = ofd.FileName;
         }

@@ -18,7 +18,6 @@ namespace Doujin_Manager.ViewModels
             set { this._selectedDouin = value; NotifyPropertyChanged("SelectedDoujin"); }
         }
 
-
         public DoujinsViewModel()
         {
             _filteredDoujinsView = new ListCollectionView(Doujins);
