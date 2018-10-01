@@ -11,7 +11,13 @@ namespace Doujin_Manager.ViewModels
     {
         public ObservableCollection<Doujin> Doujins { get; set; } = new ObservableCollection<Doujin>();
         
-        public Doujin SelectedDoujin { get; set; }
+        private Doujin _selectedDouin;
+        public Doujin SelectedDoujin
+        {
+            get { return _selectedDouin; }
+            set { this._selectedDouin = value; NotifyPropertyChanged("SelectedDoujin"); }
+        }
+
 
         public DoujinsViewModel()
         {
