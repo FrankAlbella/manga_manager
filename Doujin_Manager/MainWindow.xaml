@@ -38,12 +38,14 @@
 
         <ListView x:Name="doujinListView"
                   Margin="0,100,0,0"
+                  Width="Auto"
                   ItemsSource="{Binding Path=DoujinsViewModel.FilteredDoujinsView}"
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.VirtualizationMode="Recycling"
-                  ScrollViewer.CanContentScroll="False">
+                  ScrollViewer.CanContentScroll="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Open Doujin" Command="{Binding DoujinsViewModel.OpenCommand}"/>
@@ -62,7 +64,13 @@
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags" Width="200"/>
+                    <GridViewColumn Header="Tags" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Tags}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
