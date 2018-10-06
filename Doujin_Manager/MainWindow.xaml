@@ -11,11 +11,10 @@
         Width="900" 
         Loaded="Window_Loaded" 
         Closing="Window_Closing">
+    <Window.InputBindings>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
+    </Window.InputBindings>
     <Grid>
-        <Grid.InputBindings>
-            <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
-        </Grid.InputBindings>
-            
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">

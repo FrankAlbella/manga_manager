@@ -58,8 +58,6 @@ namespace Doujin_Manager.Util
                 case SearchMode.ID:
                     GatherDoujinDetailsFromID(searchTerm, jObject);
                     break;
-                default:
-                    break;
             }
 
             HasValues = true;
@@ -116,8 +114,6 @@ namespace Doujin_Manager.Util
                     break;
                 case SearchMode.ID:
                     jsonUrl = nhentaiGalleryUrl + searchTerm;
-                    break;
-                default:
                     break;
             }
 
