@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -57,6 +58,12 @@ namespace Doujin_Manager.ViewModels
             get { _openCommand = new RelayCommand(param => OpenDoujinDirectory()); return _openCommand; }
         }
 
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get { _deleteCommand = new RelayCommand(param => DeleteDoujin()); return _deleteCommand; }
+        }
+
         private void EditDoujin()
         {
             EditWindow editWindow = new EditWindow(SelectedDoujin);
@@ -67,6 +74,12 @@ namespace Doujin_Manager.ViewModels
         {
             if (System.IO.Directory.Exists(SelectedDoujin.Directory))
                 System.Diagnostics.Process.Start("explorer.exe", SelectedDoujin.Directory);
+        }
+
+        private void DeleteDoujin()
+        {
+            Doujins.Remove(SelectedDoujin);
+            Directory.Delete(SelectedDoujin.Directory, true);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
