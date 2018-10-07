@@ -78,8 +78,8 @@ namespace Doujin_Manager.ViewModels
 
         private void DeleteDoujin()
         {
-            Doujins.Remove(SelectedDoujin);
             Directory.Delete(SelectedDoujin.Directory, true);
+            Doujins.Remove(SelectedDoujin);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
