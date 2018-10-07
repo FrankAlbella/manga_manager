@@ -73,7 +73,7 @@ namespace Doujin_Manager.ViewModels
         private void OpenDoujinDirectory()
         {
             if (System.IO.Directory.Exists(SelectedDoujin.Directory))
-                System.Diagnostics.Process.Start("explorer.exe", SelectedDoujin.Directory);
+                System.Diagnostics.Process.Start(SelectedDoujin.Directory);
         }
 
         private void DeleteDoujin()
