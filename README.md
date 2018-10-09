@@ -11,8 +11,7 @@ A simple program for quickly viewing and searching through local archives of dou
 * Displays the title of the doujin (using the name of the folder)
 * Automatically gathers tags from nHentai
 * Manual editing of doujin info
+* Search and filter through doujin tags and titles
 
 ## Todo
-* Tag filtering
-* Save doujin info to database
-* Major optimization
+* Optimization
