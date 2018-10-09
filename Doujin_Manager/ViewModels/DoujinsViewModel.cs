@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -78,8 +79,15 @@ namespace Doujin_Manager.ViewModels
 
         private void DeleteDoujin()
         {
-            Directory.Delete(SelectedDoujin.Directory, true);
-            Doujins.Remove(SelectedDoujin);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this doujin?\nThis will delete all subfolders and files",
+                "Delete Confirmation",
+                System.Windows.MessageBoxButton.YesNo);
+
+            if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
+            {
+                Directory.Delete(SelectedDoujin.Directory, true);
+                Doujins.Remove(SelectedDoujin);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
