@@ -74,12 +74,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <DockPanel x:Name="searchBox"
+        <DockPanel x:Name="searchPanel"
                    VerticalAlignment="Bottom"
                    Height="50"
                    Background="#FFD4D4D4"
                    Visibility="{Binding SearchViewModel.Visibility}">
-            <TextBox VerticalContentAlignment="Center" Height="30" Margin="5" Text="{Binding DoujinsViewModel.TextSearch,UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Name="searchBox"
+                     VerticalContentAlignment="Center"
+                     Height="30"
+                     Margin="5"
+                     Text="{Binding DoujinsViewModel.TextSearch,UpdateSourceTrigger=PropertyChanged}"
+                     IsVisibleChanged="searchBox_IsVisibleChanged"/>
         </DockPanel>
     </Grid>
 </Window>

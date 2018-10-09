@@ -111,5 +111,13 @@ namespace Doujin_Manager
             Cache cache = new Cache();
             cache.Save(new List<Doujin>(this.dataContext.DoujinsViewModel.Doujins));
         }
+
+        private void searchBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (((System.Windows.Controls.TextBox)sender).Visibility == Visibility.Visible)
+            {
+                ((System.Windows.Controls.TextBox)sender).Focus();
+            }
+        }
     }
 }
