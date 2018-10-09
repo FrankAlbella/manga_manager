@@ -42,7 +42,7 @@ namespace Doujin_Manager.ViewModels
                 if (String.IsNullOrEmpty(value))
                     FilteredDoujinsView.Filter = null;
                 else
-                    FilteredDoujinsView.Filter = new Predicate<object>(o => ((Doujin)o).Tags.Contains(value));
+                    FilteredDoujinsView.Filter = new Predicate<object>(o => { return ((Doujin)o).Tags.ToLower().Contains(value.ToLower()) || ((Doujin)o).Title.ToLower().Contains(value.ToLower()); } );
             }
         }
 
