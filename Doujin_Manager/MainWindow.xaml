@@ -51,6 +51,7 @@
                   ItemsSource="{Binding Path=DoujinsViewModel.FilteredDoujinsView}"
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
+                  MouseDoubleClick="doujinListView_MouseDoubleClick"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ContextMenu>
@@ -84,7 +85,7 @@
                      VerticalContentAlignment="Center"
                      Height="30"
                      Margin="5"
-                     Text="{Binding DoujinsViewModel.TextSearch,UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding DoujinsViewModel.TextSearch, UpdateSourceTrigger=PropertyChanged}"
                      IsVisibleChanged="searchBox_IsVisibleChanged"/>
         </DockPanel>
     </Grid>

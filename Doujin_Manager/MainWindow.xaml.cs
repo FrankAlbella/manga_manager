@@ -119,5 +119,10 @@ namespace Doujin_Manager
                 ((System.Windows.Controls.TextBox)sender).Focus();
             }
         }
+
+        private void doujinListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ((Doujin)doujinListView.SelectedItem).OpenDirectory();
+        }
     }
 }

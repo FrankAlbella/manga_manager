@@ -81,9 +81,12 @@ namespace Doujin_Manager
             this.ID = ID;
         }
 
-        public Doujin()
-        {
+        public Doujin() { }
 
+        public void OpenDirectory()
+        {
+            if (System.IO.Directory.Exists(this.Directory))
+                System.Diagnostics.Process.Start(this.Directory);
         }
 
         public override bool Equals(object obj)
