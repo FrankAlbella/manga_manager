@@ -68,7 +68,10 @@ namespace Doujin_Manager.ViewModels
         private void EditDoujin()
         {
             EditWindow editWindow = new EditWindow(SelectedDoujin);
-            editWindow.Show();
+            editWindow.ShowDialog();
+            editWindow.Activate();
+            editWindow.Focus();
+            editWindow.Topmost = true;
         }
 
         private void OpenDoujinDirectory()
