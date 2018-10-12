@@ -53,26 +53,18 @@
                     <MenuItem Header="Delete Doujin" Command="{Binding DoujinsViewModel.DeleteCommand}"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding CoverImage}" Width="140"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="300"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Author}" Header="Author" Width="200"/>
-                    <GridViewColumn Header="Tags" Width="Auto">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Tags}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
+            
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding CoverImage}" Width="160" Stretch="Fill"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <DockPanel x:Name="searchPanel"
                    VerticalAlignment="Bottom"
