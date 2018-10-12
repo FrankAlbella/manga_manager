@@ -14,38 +14,45 @@
     <Window.InputBindings>
         <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
     </Window.InputBindings>
-    
+
     <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Change doujin folder..." Click="btnChangeDirectory_Click"/>
-                    <MenuItem Header="_Refresh" Click="btnRefresh_Click"/>
-                    <MenuItem Header="Clear cache" Click="btnCache_Click"/>
-                    <MenuItem Header="_Close" Click="btnClose_Click"/>
-                </MenuItem>
-            </Menu>
-            <StackPanel></StackPanel>
-        </DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="80" MinHeight="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Change doujin folder..." Click="btnChangeDirectory_Click"/>
+                <MenuItem Header="_Refresh" Click="btnRefresh_Click"/>
+                <MenuItem Header="C_lear cache" Click="btnCache_Click"/>
+                <MenuItem Header="Cl_ose" Click="btnClose_Click"/>
+            </MenuItem>
+        </Menu>
+
         <StackPanel x:Name="doujinInfoPanel"
-                    VerticalAlignment="Top"
-                    Height="80"
-                    Margin="5,20,5,0">
+                    Grid.Row="1"
+                    Margin="5,0,0,0">
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}" FontWeight="Bold"/>
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}" FontWeight="Bold" TextWrapping="Wrap"/>
             <TextBlock Text="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Count: {0}}" FontWeight="Bold"/>
         </StackPanel>
 
+        <GridSplitter Grid.Row="1"
+                      Height="2"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"/>
+
         <ListView x:Name="doujinListView"
-                  Margin="0,100,0,0"
+                  Grid.Row="2"
                   Width="Auto"
                   ItemsSource="{Binding Path=DoujinsViewModel.FilteredDoujinsView}"
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   ScrollViewer.CanContentScroll="False"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Open Doujin" Command="{Binding DoujinsViewModel.OpenCommand}"/>
@@ -68,6 +75,7 @@
         </ListView>
         
         <DockPanel x:Name="searchPanel"
+                   Grid.Row="2"
                    VerticalAlignment="Bottom"
                    Height="50"
                    Background="#FFD4D4D4"
