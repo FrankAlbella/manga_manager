@@ -22,7 +22,6 @@ namespace Doujin_Manager.Util
             _cachedDoujins = GetDoujinsFromCache();
         }
 
-
         public void Save(List<Doujin> doujins)
         {
             File.WriteAllText(PathUtil.cacheFilePath, JsonConvert.SerializeObject(doujins.Union<Doujin>(CachedDoujins), Formatting.Indented));

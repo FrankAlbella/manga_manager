@@ -51,15 +51,18 @@ namespace Doujin_Manager
             }
         }
 
-        public void CreateAndSetCoverImage(string coverImagePath)
+        public void CreateAndSetCoverImage(string coverImagePath, bool shouldCompress = false)
         {
-            this.CoverImage = CreateBitmapImageFromPath(coverImagePath);
+            this.CoverImage = CreateBitmapImageFromPath(coverImagePath, shouldCompress);
         }
 
-        public BitmapImage CreateBitmapImageFromPath(string path)
+        private BitmapImage CreateBitmapImageFromPath(string path, bool shouldCompress = false)
         {
             if (path != null && !File.Exists(path.Replace("file:///", "")))
                 path = DoujinScrubber.GetDefaultCoverPath(Directory);
+
+            else if (path != null && shouldCompress)
+                path = ImageCompressor.CompressImage(path, 40);
 
             if (path == null)
                 return null;

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Doujin_Manager.Util
 {
-    class ImageCompressor
+    static class ImageCompressor
     {
         /// <summary>
         /// Compress a bitmap image and returns its file path.
@@ -15,7 +15,7 @@ namespace Doujin_Manager.Util
         /// <param name="imagePath">Path to the image file.</param>
         /// <param name="quality">A value from 1-100 determining the quality. 100 = max quality; 1 = min quality.</param>
         /// <returns>The file path of the compressed image.</returns>
-        public string CompressImage(string imagePath, byte quality)
+        public static string CompressImage(string imagePath, byte quality)
         {
             string fileName = Path.GetFileName(imagePath);
             string lastFolderName = Path.GetFileName(Path.GetDirectoryName(imagePath));
@@ -40,7 +40,7 @@ namespace Doujin_Manager.Util
         }
 
         // More quality = higher quality image
-        private void SaveCompressedImage(string path, Bitmap image, byte quality)
+        private static void SaveCompressedImage(string path, Bitmap image, byte quality)
         {
             if (quality < 0 || quality > 100)
                 throw new ArgumentOutOfRangeException("Quality must be between 0 and 100.");
@@ -57,7 +57,7 @@ namespace Doujin_Manager.Util
             image.Save(path, codec, encoderParams);
         }
 
-        private string GetMimeType(string path)
+        private static string GetMimeType(string path)
         {
             switch (Path.GetExtension(path).ToLower())
             {
@@ -71,7 +71,7 @@ namespace Doujin_Manager.Util
             }
         }
 
-        private ImageCodecInfo GetEncoderInfo(string mimeType)
+        private static ImageCodecInfo GetEncoderInfo(string mimeType)
         {
             // Get image codecs for all image formats 
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();

@@ -33,7 +33,7 @@ namespace Doujin_Manager.Controls
         {
             if(this.doujin.CoverImage.UriSource.AbsolutePath != tBoxCoverDir.Text
                 && File.Exists(tBoxCoverDir.Text))
-                this.doujin.CreateAndSetCoverImage(tBoxCoverDir.Text);
+                this.doujin.CreateAndSetCoverImage(tBoxCoverDir.Text, true);
                 
             if (this.doujin.ID != tBoxID.Text)
             {
@@ -61,6 +61,7 @@ namespace Doujin_Manager.Controls
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            ofd.InitialDirectory = this.doujin.Directory;
             if (ofd.ShowDialog() == true)
                 tBoxCoverDir.Text = ofd.FileName;
         }

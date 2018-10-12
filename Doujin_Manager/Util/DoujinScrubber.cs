@@ -42,7 +42,6 @@ namespace Doujin_Manager.Util
             }   
 
             TagScrubber tagScrubber = new TagScrubber();
-            ImageCompressor imageCompressor = new ImageCompressor();
 
             // Search for the first image in the directory 
             // and set it as cover image + add it to the panel
@@ -51,7 +50,7 @@ namespace Doujin_Manager.Util
                 string coverImagePath = GetDefaultCoverPath(directory);
                 string dirName = Path.GetFileName(Path.GetDirectoryName(coverImagePath));
 
-                coverImagePath = imageCompressor.CompressImage(coverImagePath, 40);
+                coverImagePath = ImageCompressor.CompressImage(coverImagePath, 40);
 
                 tagScrubber.GatherDoujinDetails(dirName, TagScrubber.SearchMode.Title);
 
