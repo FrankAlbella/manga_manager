@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Doujin_Manager.Util;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager
@@ -56,6 +58,12 @@ namespace Doujin_Manager
 
         public BitmapImage CreateBitmapImageFromPath(string path)
         {
+            if (path != null && !File.Exists(path.Replace("file:///", "")))
+                path = DoujinScrubber.GetDefaultCoverPath(Directory);
+
+            if (path == null)
+                return null;
+
             BitmapImage newCoverImage = new BitmapImage();
 
             newCoverImage.BeginInit();
@@ -73,11 +81,11 @@ namespace Doujin_Manager
         [JsonConstructor]
         public Doujin(string CoverImage, string Title, string Author, string Tags, string Directory, string ID)
         {
-            this.CoverImage = CreateBitmapImageFromPath(CoverImage);
             this.Title = Title;
             this.Author = Author;
             this.Tags = Tags;
             this.Directory = Directory;
+            this.CoverImage = CreateBitmapImageFromPath(CoverImage);
             this.ID = ID;
         }
 

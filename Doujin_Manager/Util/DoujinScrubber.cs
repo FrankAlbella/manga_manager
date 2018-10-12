@@ -13,6 +13,8 @@ namespace Doujin_Manager.Util
         private readonly CentralViewModel dataContext;
         private readonly Cache cache;
 
+        private static readonly List<string> extensions = new List<string> { ".jpg", ".jpeg", ".png" };
+
         public DoujinScrubber(CentralViewModel dataContext)
         {
             this.dataContext = dataContext;
@@ -46,21 +48,10 @@ namespace Doujin_Manager.Util
             // and set it as cover image + add it to the panel
             foreach (string directory in potentialDoujinDirectories)
             {
-                string[] files = Directory.GetFiles(directory);
-                string coverImagePath = "";
-                string dirName = "";
+                string coverImagePath = GetDefaultCoverPath(directory);
+                string dirName = Path.GetFileName(Path.GetDirectoryName(coverImagePath));
 
-                foreach (string file in files)
-                {
-                    if (file.ToLower().EndsWith(".jpg") ||
-                        file.ToLower().EndsWith(".png") ||
-                        file.ToLower().EndsWith(".jpeg"))
-                    {
-                        coverImagePath = imageCompressor.CompressImage(file, 40);
-                        dirName = Path.GetFileName(Path.GetDirectoryName(file));
-                        break;
-                    }
-                }
+                coverImagePath = imageCompressor.CompressImage(coverImagePath, 40);
 
                 tagScrubber.GatherDoujinDetails(dirName, TagScrubber.SearchMode.Title);
 
@@ -85,6 +76,14 @@ namespace Doujin_Manager.Util
             }
 
             Invoke_SaveToCache(dataContext.DoujinsViewModel.Doujins.ToList<Doujin>());
+        }
+
+        public static string GetDefaultCoverPath(string doujinDirectory)
+        {
+            if (Directory.Exists(doujinDirectory))
+                return Directory.GetFiles(doujinDirectory).FirstOrDefault(s => extensions.Contains(Path.GetExtension(s.ToLower())));
+
+            return null;
         }
 
         private List<string> GetDoujinsFoundInCache(List<string> doujinDirectories)
