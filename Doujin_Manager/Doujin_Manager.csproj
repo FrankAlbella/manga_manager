@@ -84,9 +84,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\DoujinControl.xaml.cs">
-      <DependentUpon>DoujinControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
@@ -94,16 +91,11 @@
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="Util\ImageCompressor.cs" />
     <Compile Include="Util\TagScrubber.cs" />
-    <Compile Include="ViewModels\DoujinInfoViewModel.cs" />
     <Compile Include="Util\DoujinScrubber.cs" />
     <Compile Include="ViewModels\DoujinsViewModel.cs" />
     <Compile Include="ViewModels\CentralViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
-    <Page Include="Controls\DoujinControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
