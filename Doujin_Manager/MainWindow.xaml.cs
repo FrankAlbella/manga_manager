@@ -83,24 +83,6 @@ namespace Doujin_Manager
             AsyncPopulateDoujinPanel();
         }
 
-        // TODO: causes an exception because images are not released after list is cleared
-        private void btnCache_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < dataContext.DoujinsViewModel.Doujins.Count; i++)
-            {
-                dataContext.DoujinsViewModel.Doujins[i] = null;
-            }
-
-            dataContext.DoujinsViewModel.Doujins.Clear();
-            GC.Collect();
-            string[] thumbsnails = Directory.GetFiles(PathUtil.thumbnailDir);
-
-            foreach (string thumbnail in thumbsnails)
-            {
-                File.Delete(thumbnail);
-            }
-        }
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();

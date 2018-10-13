@@ -26,8 +26,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Change doujin folder..." Click="btnChangeDirectory_Click"/>
                 <MenuItem Header="_Refresh" Click="btnRefresh_Click"/>
-                <MenuItem Header="C_lear cache" Click="btnCache_Click"/>
-                <MenuItem Header="Cl_ose" Click="btnClose_Click"/>
+                <MenuItem Header="C_lose" Click="btnClose_Click"/>
             </MenuItem>
         </Menu>
 
