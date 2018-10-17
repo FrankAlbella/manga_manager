@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doujin_Manager.Controls"
         mc:Ignorable="d"
-        Title="Edit Doujin" Height="391.667" Width="696.296" WindowStyle="ToolWindow" ResizeMode="NoResize">
+        Title="Edit Doujin"
+        Width="696.296"
+        Height="391.667"
+        ResizeMode="NoResize">
     <Grid Margin="5" Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.15*" />
