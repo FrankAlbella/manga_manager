@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doujin_Manager.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -9,23 +10,27 @@ using System.Windows.Input;
 
 namespace Doujin_Manager.ViewModels
 {
-    class MenuViewModel : INotifyPropertyChanged 
+    class MenuViewModel
     {
-        private ICommand _openDirectoryCommand;
-        public ICommand OpenDirectoryCommand
+        private ICommand _openRepositoryCommand;
+        public ICommand OpenRepositoryCommand
         {
-            get { _openDirectoryCommand = new RelayCommand(param => Process.Start("https://github.com/frankstar10/Doujin_Manager")); return _openDirectoryCommand; }
+            get { _openRepositoryCommand = new RelayCommand(param => Process.Start("https://github.com/frankstar10/Doujin_Manager")); return _openRepositoryCommand; }
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string propertyName)
+        private ICommand _aboutCommand;
+        public ICommand AboutCommand
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            get { _aboutCommand = new RelayCommand(param => OpenAboutWindow()); return _aboutCommand; }
+        }
+
+        private void OpenAboutWindow()
+        {
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
+            aboutWindow.Activate();
+            aboutWindow.Focus();
+            aboutWindow.Topmost = true;
         }
     }
 }
