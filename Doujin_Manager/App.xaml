@@ -8,5 +8,6 @@
         <!--<local:DoujinInfoViewModel x:Key="DoujinInfo" />-->
         <!--<local:DoujinsViewModel x:Key="DoujinsViewModel" />-->
         <localViewModels:CentralViewModel x:Key="DoujinViewModel" />
+        <localViewModels:MenuViewModel x:Key="MenuViewModel" />
     </Application.Resources>
 </Application>
