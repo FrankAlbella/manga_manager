@@ -27,6 +27,8 @@ namespace Doujin_Manager.Controls
             tBoxAuthor.Text = this.doujin.Author;
             tBoxTags.Text = this.doujin.Tags;
             tBoxID.Text = this.doujin.ID;
+
+            textBox.Text = this.doujin.Characters + " " + this.doujin.Parodies;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

@@ -11,15 +11,13 @@ namespace Doujin_Manager.Util
     class DoujinScrubber
     {
         private readonly CentralViewModel dataContext;
-        private readonly Cache cache;
+        private Cache cache;
 
         private static readonly List<string> extensions = new List<string> { ".jpg", ".jpeg", ".png" };
 
         public DoujinScrubber(CentralViewModel dataContext)
         {
             this.dataContext = dataContext;
-
-            cache = new Cache();
         }
 
         public void PopulateDoujins()
@@ -31,6 +29,8 @@ namespace Doujin_Manager.Util
 
             if (potentialDoujinDirectories == null)
                 return;
+
+            cache = new Cache();
 
             if (cache.CachedDoujins != null)
             {
@@ -102,15 +102,15 @@ namespace Doujin_Manager.Util
 
         private void Invoke_AddDoujinToViewModel(Doujin doujin)
         {
-            Invoke_AddDoujinToViewModel(doujin.CoverImage.UriSource.ToString(), doujin.Title, doujin.Author, doujin.Directory, doujin.Tags, doujin.ID);
+            Invoke_AddDoujinToViewModel(doujin.CoverImage.UriSource.ToString(), doujin.Title, doujin.Author, doujin.Directory, doujin.Parodies, doujin.Characters, doujin.Tags, doujin.ID);
         }
 
         private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string directory, TagScrubber tagScrubber)
         {
-            Invoke_AddDoujinToViewModel(coverImagePath, title, tagScrubber.Author, directory, tagScrubber.Tags, tagScrubber.ID);
+            Invoke_AddDoujinToViewModel(coverImagePath, title, tagScrubber.Author, directory, tagScrubber.Parodies, tagScrubber.Characters, tagScrubber.Tags, tagScrubber.ID);
         }
 
-        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string author, string directory, string tags, string id)
+        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string author, string directory, string parodies, string characters, string tags, string id)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
@@ -119,6 +119,8 @@ namespace Doujin_Manager.Util
                     Title = title,
                     Author = author,
                     Directory = directory,
+                    Parodies = parodies,
+                    Characters = characters,
                     Tags = tags,
                     ID = id
                 };

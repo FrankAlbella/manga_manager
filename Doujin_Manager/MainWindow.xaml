@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
-        Title="Doujin Manager" 
+        Title="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Doujin Manager - {0} Doujins}" 
         Height="600" 
         Width="900" 
         Loaded="Window_Loaded" 
@@ -18,7 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
-            <RowDefinition Height="80" MinHeight="80" MaxHeight="200" />
+            <RowDefinition Height="95" MinHeight="80" MaxHeight="200" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
@@ -54,8 +54,9 @@
             
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}"/>
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Parodies, StringFormat=Parodies: {0}}"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Characters, StringFormat=Characters: {0}}"/>
             <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Count: {0}}"/>
         </StackPanel>
 
         <GridSplitter Grid.Row="1"

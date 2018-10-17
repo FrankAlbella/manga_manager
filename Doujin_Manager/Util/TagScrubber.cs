@@ -9,6 +9,8 @@ namespace Doujin_Manager.Util
     {
         public string Title { get; set; } = "";
         public string Author { get; set; } = "";
+        public string Parodies { get; set; } = "";
+        public string Characters { get; set; } = "";
         public string Tags { get; set; } = "";
         public string ID { get; set; } = "000000";
         public bool HasValues { get; set; } = false;
@@ -67,6 +69,8 @@ namespace Doujin_Manager.Util
         {
             Title = "";
             Author = "";
+            Parodies = "";
+            Characters = "";
             Tags = "";
             ID = "000000";
             HasValues = false;
@@ -84,9 +88,11 @@ namespace Doujin_Manager.Util
             else if (jObject["result"] != null)
                 jObject = (JObject)jObject["result"][0];
 
-            Tags = GetTagsFromTitle(doujinTitle, jObject, "tag");
-            Author = GetTagsFromTitle(doujinTitle, jObject, "artist");
-            ID = GetIDFromTitle(doujinTitle, jObject);
+            Tags = GetTagsFromTitle(jObject, "tag");
+            Parodies = GetTagsFromTitle(jObject, "parody");
+            Characters = GetTagsFromTitle(jObject, "character");
+            Author = GetTagsFromTitle(jObject, "artist");
+            ID = GetIDFromTitle(jObject);
         }
 
         private void GatherDoujinDetailsFromID(string doujinID, JObject jObject)
@@ -140,7 +146,7 @@ namespace Doujin_Manager.Util
             return JObject.Parse(json);
         }
 
-        private string GetIDFromTitle(string doujinTitle, JObject jObject)
+        private string GetIDFromTitle(JObject jObject)
         {
             return jObject["id"].ToString();
         }
@@ -153,7 +159,7 @@ namespace Doujin_Manager.Util
             return jObject["title"]["english"].ToString();
         }
 
-        private string GetTagsFromTitle(string title, JObject jObject, string type)
+        private string GetTagsFromTitle(JObject jObject, string type)
         {
             string tags = "";
 
@@ -164,9 +170,6 @@ namespace Doujin_Manager.Util
                     tags += tag["name"].ToString() + ", ";
                 }
             }
-
-            if (tags == "")
-                return "UNKNOWN";
 
             // Remove the last set of ", " from the tags string; maybe temporary
             return tags.Remove(tags.Length-2);

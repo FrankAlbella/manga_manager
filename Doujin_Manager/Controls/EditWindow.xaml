@@ -45,6 +45,8 @@
         <TextBox x:Name="tBoxAuthor" Grid.Column="1" Grid.Row="3" Height="23" VerticalContentAlignment="Center" KeyDown="tBox_KeyDown"/>
         <TextBox x:Name="tBoxTags" Grid.Column="1" Grid.Row="4" Height="23" VerticalContentAlignment="Center" KeyDown="tBox_KeyDown"/>
 
+        <TextBlock x:Name="textBox" Grid.Column="1" Grid.Row="5"/>
+
         <Button x:Name="btnSave"
                 Content="Save"
                 Grid.Column="1"

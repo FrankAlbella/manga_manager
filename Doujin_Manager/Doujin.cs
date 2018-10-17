@@ -30,6 +30,20 @@ namespace Doujin_Manager
             set { this._author = value; NotifyPropertyChanged("Author"); }
         }
 
+        private string _Parodies;
+        public string Parodies
+        {
+            get { return _Parodies; }
+            set { this._Parodies = value; NotifyPropertyChanged("Parodies"); }
+        }
+
+        private string _characters;
+        public string Characters
+        {
+            get { return _characters; }
+            set { this._characters = value; NotifyPropertyChanged("Characters"); }
+        }
+
         private string _tags;
         public string Tags
         {
@@ -82,10 +96,12 @@ namespace Doujin_Manager
         }
 
         [JsonConstructor]
-        public Doujin(string CoverImage, string Title, string Author, string Tags, string Directory, string ID)
+        public Doujin(string CoverImage, string Title, string Author, string Parodies, string Characters, string Tags, string Directory, string ID)
         {
             this.Title = Title;
             this.Author = Author;
+            this.Parodies = Parodies;
+            this.Characters = Characters;
             this.Tags = Tags;
             this.Directory = Directory;
             this.CoverImage = CreateBitmapImageFromPath(CoverImage);
