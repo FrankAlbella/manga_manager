@@ -45,10 +45,17 @@
         <StackPanel x:Name="doujinInfoPanel"
                     Grid.Row="1"
                     Margin="5,0,0,0">
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}" FontWeight="Bold" TextWrapping="Wrap"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Count: {0}}" FontWeight="Bold"/>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}"/>
+            <TextBlock Text="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Count: {0}}"/>
         </StackPanel>
 
         <GridSplitter Grid.Row="1"
