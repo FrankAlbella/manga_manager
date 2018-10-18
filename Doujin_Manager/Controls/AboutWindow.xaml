@@ -29,7 +29,7 @@
             <TextBlock Text="Doujin Manager" FontSize="36" />
             <TextBlock Text="v1.0" FontSize="18" />
             <TextBlock Text="Doujin Manager is a free and open source project file manager and organizer licensed under GPLv2.0."/>
-            <TextBlock Text="This software should not be used to to view or manage illegal content."/>
+            <TextBlock Text="This software should not be used to view or manage illegal content."/>
         </StackPanel>
     </DockPanel>
 </Window>
