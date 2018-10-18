@@ -25,10 +25,10 @@ namespace Doujin_Manager.Controls
             tBoxCoverDir.Text = this.doujin.CoverImage.UriSource.AbsolutePath;
             tBoxTitle.Text = this.doujin.Title;
             tBoxAuthor.Text = this.doujin.Author;
+            tBoxParodies.Text = this.doujin.Parodies;
+            tBoxCharacters.Text = this.doujin.Characters;
             tBoxTags.Text = this.doujin.Tags;
             tBoxID.Text = this.doujin.ID;
-
-            textBox.Text = this.doujin.Characters + " " + this.doujin.Parodies;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -47,6 +47,8 @@ namespace Doujin_Manager.Controls
                     this.doujin.ID = tagScrubber.ID;
                     this.doujin.Title = tagScrubber.Title;
                     this.doujin.Author = tagScrubber.Author;
+                    this.doujin.Parodies = tagScrubber.Parodies;
+                    this.doujin.Characters = tagScrubber.Characters;
                     this.doujin.Tags = tagScrubber.Tags;
                 }
             }
@@ -54,8 +56,11 @@ namespace Doujin_Manager.Controls
             {
                 this.doujin.Title = tBoxTitle.Text;
                 this.doujin.Author = tBoxAuthor.Text;
+                this.doujin.Parodies = tBoxParodies.Text;
+                this.doujin.Characters = tBoxCharacters.Text;
                 this.doujin.Tags = tBoxTags.Text;
             }
+
             this.Close();
         }
 
@@ -64,6 +69,7 @@ namespace Doujin_Manager.Controls
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             ofd.InitialDirectory = this.doujin.Directory;
+
             if (ofd.ShowDialog() == true)
                 tBoxCoverDir.Text = ofd.FileName;
         }
