@@ -98,6 +98,22 @@ namespace Doujin_Manager
         [JsonConstructor]
         public Doujin(string CoverImage, string Title, string Author, string Parodies, string Characters, string Tags, string Directory, string ID)
         {
+            if (Parodies == null || Characters == null)
+            {
+                if (ID != "000000")
+                {
+                    TagScrubber tagScrubber = new TagScrubber(ID, TagScrubber.SearchMode.ID);
+
+                    Characters = tagScrubber.Characters;
+                    Parodies = tagScrubber.Parodies;
+                }
+                else
+                {
+                    Characters = "";
+                    Parodies = "";
+                }
+            }
+
             this.Title = Title;
             this.Author = Author;
             this.Parodies = Parodies;

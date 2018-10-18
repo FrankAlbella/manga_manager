@@ -25,6 +25,13 @@ namespace Doujin_Manager.Util
             ID
         }
 
+        public TagScrubber() { }
+
+        public TagScrubber(string searchTerm, SearchMode mode)
+        {
+            GatherDoujinDetails(searchTerm, mode);
+        }
+
         /// <summary>
         /// Used to gather and set information related to the doujin online.
         /// Always use before calling Author, Tags, or ID.
@@ -172,7 +179,7 @@ namespace Doujin_Manager.Util
             }
 
             // Remove the last set of ", " from the tags string; maybe temporary
-            return tags.Remove(tags.Length-2);
+            return tags != "" ? tags.Remove(tags.Length-2) : "";
         }
     }
 }
