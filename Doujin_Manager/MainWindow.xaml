@@ -51,7 +51,7 @@
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="MenuItem">
                             <Setter Property="Icon" Value="{DynamicResource RadioButtonResource}"/>
-                            <EventSetter Event="Click" Handler="MenuItemWithRadioButtons_Click" />
+                            <EventSetter Event="Click" Handler="SortByMenuItems_Click" />
                         </Style>
                     </MenuItem.ItemContainerStyle>
                     <MenuItem Header="Title" Command="{Binding DoujinsViewModel.SortModel.SortByTitleCommand}"/>

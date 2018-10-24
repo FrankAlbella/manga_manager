@@ -108,23 +108,32 @@ namespace Doujin_Manager
             ((Doujin)doujinListView.SelectedItem).OpenDirectory();
         }
 
-        private void MenuItemWithRadioButtons_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void SortByMenuItems_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            MenuItem menuItem = (MenuItem)sender;
+            MenuItem menuItem = sender as MenuItem;
             if (menuItem != null)
             {
                 RadioButton radioButton = (RadioButton)menuItem.Icon;
                 if (radioButton != null)
                 {
-                    foreach (MenuItem item in SortMenu.Items.OfType<MenuItem>())
-                    {
-                        ((RadioButton)item.Icon).IsChecked = false;
-                    }
-                    
+                    // Check if menuitem that fired event is a Ascending or Descending button
+                    // if it isn't, it will uncheck all other buttons before checking the sender
+                    // if it is, then it unchecks the Ascending and Descending buttons before checking the sender
+                    if (menuItem != (MenuItem)SortMenu.Items.GetItemAt(SortMenu.Items.Count-1)
+                        && menuItem != SortMenu.Items.GetItemAt(SortMenu.Items.Count - 2))
+                        SortMenu.Items.OfType<MenuItem>().Take(4).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
+                    else
+                        SortMenu.Items.OfType<MenuItem>().Skip(4).Take(2).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
+
                     radioButton.IsChecked = true;
                 }
                     
             }
+        }
+
+        private void SortDirectionMenuItems_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }
