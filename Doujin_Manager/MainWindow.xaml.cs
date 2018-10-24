@@ -61,9 +61,7 @@ namespace Doujin_Manager
 
             // Open folder select dialog if no folder location is saved
             if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
-            {
                 ChooseDoujinRootDirection();
-            }
         }
 
         private void doujinListView_Loaded(object sender, RoutedEventArgs e)
@@ -98,9 +96,7 @@ namespace Doujin_Manager
         private void searchBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (((TextBox)sender).Visibility == Visibility.Visible)
-            {
                 ((TextBox)sender).Focus();
-            }
         }
 
         private void doujinListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -129,11 +125,6 @@ namespace Doujin_Manager
                 }
                     
             }
-        }
-
-        private void SortDirectionMenuItems_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-
         }
     }
 }
