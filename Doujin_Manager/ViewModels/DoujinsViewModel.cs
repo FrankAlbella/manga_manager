@@ -1,4 +1,6 @@
-﻿using Doujin_Manager.Controls;
+﻿using Doujin_Manager.Comparator;
+using Doujin_Manager.Controls;
+using Doujin_Manager.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +14,14 @@ namespace Doujin_Manager.ViewModels
     class DoujinsViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Doujin> Doujins { get; set; } = new ObservableCollection<Doujin>();
-        
+
+        public SortModel _sortModel;
+        public SortModel SortModel
+        {
+            get { return this._sortModel; }
+            set { this._sortModel = value; }
+        }
+
         private Doujin _selectedDouin;
         public Doujin SelectedDoujin
         {
@@ -20,15 +29,16 @@ namespace Doujin_Manager.ViewModels
             set { this._selectedDouin = value; NotifyPropertyChanged("SelectedDoujin"); }
         }
 
-        public DoujinsViewModel()
-        {
-            _filteredDoujinsView = new ListCollectionView(Doujins);
-        }
-
         private ListCollectionView _filteredDoujinsView;
         public ICollectionView FilteredDoujinsView
         {
             get { return this._filteredDoujinsView; }
+        }
+
+        public DoujinsViewModel()
+        {
+            _filteredDoujinsView = new ListCollectionView(Doujins);
+            SortModel = new SortModel(ref _filteredDoujinsView);
         }
 
         private string _textSearch;

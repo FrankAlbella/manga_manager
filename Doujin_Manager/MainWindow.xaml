@@ -34,6 +34,37 @@
             <MenuItem Header="_Options">
                 <MenuItem Header="_General Settings"/>
             </MenuItem>
+
+            <MenuItem Header="_View">
+                <MenuItem x:Name="SortMenu"
+                          Header="Sort by"
+                          DataContext="{StaticResource DoujinViewModel}">
+                    <MenuItem.Resources>
+                        <RadioButton x:Key="RadioButtonResource"
+                                     x:Shared="false"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     IsHitTestVisible="False"
+                                     Background="{x:Null}"
+                                     BorderBrush="{x:Null}"/>
+                    </MenuItem.Resources>
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Icon" Value="{DynamicResource RadioButtonResource}"/>
+                            <EventSetter Event="Click" Handler="MenuItemWithRadioButtons_Click" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                    <MenuItem Header="Title" Command="{Binding DoujinsViewModel.SortModel.SortByTitleCommand}"/>
+                    <MenuItem Header="Author" Command="{Binding DoujinsViewModel.SortModel.SortByAuthorCommand}"/>
+                    <MenuItem Header="Date added"/>
+                    <MenuItem Header="Date published"/>
+                    
+                    <Separator/>
+
+                    <MenuItem Header="Ascending" Command="{Binding DoujinsViewModel.SortModel.SortByAscendingCommand}"/>
+                    <MenuItem Header="Descending" Command="{Binding DoujinsViewModel.SortModel.SortByDescendingCommand}"/>
+                </MenuItem>
+            </MenuItem>
             
             <MenuItem Header="_Help">
                 <MenuItem Header="_Github Repository" Command="{Binding OpenRepositoryCommand}"/>
@@ -71,6 +102,7 @@
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   MouseDoubleClick="doujinListView_MouseDoubleClick"
+                  
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ContextMenu>

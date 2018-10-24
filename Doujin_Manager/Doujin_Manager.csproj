@@ -84,12 +84,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Comparator\SortByAuthor.cs" />
+    <Compile Include="Comparator\SortByTitle.cs" />
     <Compile Include="Controls\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\SortModel.cs" />
     <Compile Include="Util\Cache.cs" />
     <Compile Include="Util\PathUtil.cs" />
     <Compile Include="Util\ImageCompressor.cs" />

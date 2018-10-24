@@ -3,9 +3,10 @@ using Doujin_Manager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
 
 namespace Doujin_Manager
 {
@@ -38,9 +39,9 @@ namespace Doujin_Manager
 
         private void ChooseDoujinRootDirection()
         {
-            using (var fbd = new FolderBrowserDialog())
+            using (var fbd = new System.Windows.Forms.FolderBrowserDialog())
             {
-                DialogResult result = fbd.ShowDialog();
+                System.Windows.Forms.DialogResult result = fbd.ShowDialog();
 
                 if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
@@ -96,15 +97,34 @@ namespace Doujin_Manager
 
         private void searchBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (((System.Windows.Controls.TextBox)sender).Visibility == Visibility.Visible)
+            if (((TextBox)sender).Visibility == Visibility.Visible)
             {
-                ((System.Windows.Controls.TextBox)sender).Focus();
+                ((TextBox)sender).Focus();
             }
         }
 
         private void doujinListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             ((Doujin)doujinListView.SelectedItem).OpenDirectory();
+        }
+
+        private void MenuItemWithRadioButtons_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            if (menuItem != null)
+            {
+                RadioButton radioButton = (RadioButton)menuItem.Icon;
+                if (radioButton != null)
+                {
+                    foreach (MenuItem item in SortMenu.Items.OfType<MenuItem>())
+                    {
+                        ((RadioButton)item.Icon).IsChecked = false;
+                    }
+                    
+                    radioButton.IsChecked = true;
+                }
+                    
+            }
         }
     }
 }
