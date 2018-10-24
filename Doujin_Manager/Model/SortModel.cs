@@ -1,5 +1,6 @@
 ﻿using Doujin_Manager.Comparator;
 using Doujin_Manager.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace Doujin_Manager.Model
 
         public SortModel(ref ListCollectionView listCollectionView)
         {
-            sortDirection = Properties.Settings.Default.DoujinListboxSortOrder;
+            sortDirection = ListSortDirection.Ascending;
             selectedCommand = SortByTitleCommand;
 
             this.filteredDoujinsView = listCollectionView;
@@ -24,6 +25,9 @@ namespace Doujin_Manager.Model
         { get { return new RelayCommand(param => SortByTitle()); } }
 
         public ICommand SortByAuthorCommand
+        { get { return new RelayCommand(param => SortByAuthor()); } }
+
+        public ICommand SortByDateAddedCommand
         { get { return new RelayCommand(param => SortByAuthor()); } }
 
         public ICommand SortByAscendingCommand
@@ -44,15 +48,19 @@ namespace Doujin_Manager.Model
             selectedCommand = SortByAuthorCommand;
         }
 
+        private void SortByDateAdded()
+        {
+            filteredDoujinsView.CustomSort = new SortByAuthor(this.sortDirection);
+            selectedCommand = SortByAuthorCommand;
+        }
+
+
         private void ChangeSortDirection(ListSortDirection direction)
         {
             if (direction == this.sortDirection)
                 return;
 
             this.sortDirection = direction;
-
-            Properties.Settings.Default.DoujinListboxSortOrder = direction;
-
             selectedCommand.Execute(null);
         }
     }

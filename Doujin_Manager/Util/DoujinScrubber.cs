@@ -56,7 +56,7 @@ namespace Doujin_Manager.Util
 
                 try
                 {
-                    Invoke_AddDoujinToViewModel(coverImagePath, dirName, directory, tagScrubber);
+                    Invoke_AddDoujinToViewModel(coverImagePath, DateTime.Now, dirName, directory, tagScrubber);
                 }
                 catch(NotSupportedException)
                 {
@@ -102,20 +102,21 @@ namespace Doujin_Manager.Util
 
         private void Invoke_AddDoujinToViewModel(Doujin doujin)
         {
-            Invoke_AddDoujinToViewModel(doujin.CoverImage.UriSource.ToString(), doujin.Title, doujin.Author, doujin.Directory, doujin.Parodies, doujin.Characters, doujin.Tags, doujin.ID);
+            Invoke_AddDoujinToViewModel(doujin.CoverImage.UriSource.ToString(), doujin.DateAdded, doujin.Title, doujin.Author, doujin.Directory, doujin.Parodies, doujin.Characters, doujin.Tags, doujin.ID);
         }
 
-        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string directory, TagScrubber tagScrubber)
+        private void Invoke_AddDoujinToViewModel(string coverImagePath, DateTime dateAdded, string title, string directory, TagScrubber tagScrubber)
         {
-            Invoke_AddDoujinToViewModel(coverImagePath, title, tagScrubber.Author, directory, tagScrubber.Parodies, tagScrubber.Characters, tagScrubber.Tags, tagScrubber.ID);
+            Invoke_AddDoujinToViewModel(coverImagePath, dateAdded, title, tagScrubber.Author, directory, tagScrubber.Parodies, tagScrubber.Characters, tagScrubber.Tags, tagScrubber.ID);
         }
 
-        private void Invoke_AddDoujinToViewModel(string coverImagePath, string title, string author, string directory, string parodies, string characters, string tags, string id)
+        private void Invoke_AddDoujinToViewModel(string coverImagePath, DateTime dateAdded, string title, string author, string directory, string parodies, string characters, string tags, string id)
         {
             Application.Current.Dispatcher.Invoke(new Action(() =>
             {
                 Doujin doujin = new Doujin
                 {
+                    DateAdded = dateAdded,
                     Title = title,
                     Author = author,
                     Directory = directory,

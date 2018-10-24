@@ -16,6 +16,13 @@ namespace Doujin_Manager
             set { this._coverImage = value; NotifyPropertyChanged("CoverImage"); }
         }
 
+        private DateTime _dateAdded;
+        public DateTime DateAdded
+        {
+            get { return _dateAdded; }
+            set { this._dateAdded = value; NotifyPropertyChanged("DateAdded"); }
+        }
+
         private string _title;
         public string Title
         {
@@ -96,7 +103,7 @@ namespace Doujin_Manager
         }
 
         [JsonConstructor]
-        public Doujin(string CoverImage, string Title, string Author, string Parodies, string Characters, string Tags, string Directory, string ID)
+        public Doujin(string CoverImage, string Title, DateTime DateAdded, string Author, string Parodies, string Characters, string Tags, string Directory, string ID)
         {
             if (Parodies == null || Characters == null)
             {
@@ -113,6 +120,11 @@ namespace Doujin_Manager
                     Parodies = "";
                 }
             }
+            
+            if (DateAdded == null || DateAdded == new DateTime(0001, 1, 1, 0, 0, 0, 0))
+                DateAdded = DateTime.Now;
+            else
+                this.DateAdded = DateAdded;
 
             this.Title = Title;
             this.Author = Author;

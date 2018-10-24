@@ -5,8 +5,6 @@
              xmlns:localViewModels="clr-namespace:Doujin_Manager.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--<local:DoujinInfoViewModel x:Key="DoujinInfo" />-->
-        <!--<local:DoujinsViewModel x:Key="DoujinsViewModel" />-->
         <localViewModels:CentralViewModel x:Key="DoujinViewModel" />
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
     </Application.Resources>

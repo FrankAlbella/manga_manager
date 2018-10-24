@@ -10,9 +10,6 @@ using System.Windows.Controls;
 
 namespace Doujin_Manager
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         CentralViewModel dataContext;
@@ -117,9 +114,9 @@ namespace Doujin_Manager
                     // if it is, then it unchecks the Ascending and Descending buttons before checking the sender
                     if (menuItem != (MenuItem)SortMenu.Items.GetItemAt(SortMenu.Items.Count-1)
                         && menuItem != SortMenu.Items.GetItemAt(SortMenu.Items.Count - 2))
-                        SortMenu.Items.OfType<MenuItem>().Take(4).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
+                        SortMenu.Items.OfType<MenuItem>().Take(3).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
                     else
-                        SortMenu.Items.OfType<MenuItem>().Skip(4).Take(2).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
+                        SortMenu.Items.OfType<MenuItem>().Skip(3).Take(2).ToList().ForEach(x => ((RadioButton)x.Icon).IsChecked = false);
 
                     radioButton.IsChecked = true;
                 }

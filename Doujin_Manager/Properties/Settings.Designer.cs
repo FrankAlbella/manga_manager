@@ -34,17 +34,5 @@ namespace Doujin_Manager.Properties {
                 this["DoujinDirectory"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ascending")]
-        public global::System.ComponentModel.ListSortDirection DoujinListboxSortOrder {
-            get {
-                return ((global::System.ComponentModel.ListSortDirection)(this["DoujinListboxSortOrder"]));
-            }
-            set {
-                this["DoujinListboxSortOrder"] = value;
-            }
-        }
     }
 }

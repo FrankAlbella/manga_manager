@@ -56,9 +56,8 @@
                     </MenuItem.ItemContainerStyle>
                     <MenuItem Header="Title" Command="{Binding DoujinsViewModel.SortModel.SortByTitleCommand}"/>
                     <MenuItem Header="Author" Command="{Binding DoujinsViewModel.SortModel.SortByAuthorCommand}"/>
-                    <MenuItem Header="Date added"/>
-                    <MenuItem Header="Date published"/>
-                    
+                    <MenuItem Header="Date added" Command="{Binding DoujinsViewModel.SortModel.SortByDateAddedCommand}"/>
+
                     <Separator/>
 
                     <MenuItem Header="Ascending" Command="{Binding DoujinsViewModel.SortModel.SortByAscendingCommand}"/>
@@ -102,7 +101,6 @@
                   SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   MouseDoubleClick="doujinListView_MouseDoubleClick"
-                  
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ContextMenu>

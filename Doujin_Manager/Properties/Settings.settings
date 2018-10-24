@@ -5,8 +5,5 @@
     <Setting Name="DoujinDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DoujinListboxSortOrder" Type="System.ComponentModel.ListSortDirection" Scope="User">
-      <Value Profile="(Default)">Ascending</Value>
-    </Setting>
   </Settings>
 </SettingsFile>
