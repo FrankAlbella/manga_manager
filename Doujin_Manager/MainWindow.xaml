@@ -76,6 +76,7 @@
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Open Doujin" Command="{Binding DoujinsViewModel.OpenCommand}"/>
+                    <MenuItem Header="Open Doujin in Browser" Command="{Binding DoujinsViewModel.OpenBrowserCommand}"/>
                     <MenuItem Header="Edit Doujin" Command="{Binding DoujinsViewModel.EditCommand}"/>
                     <MenuItem Header="Delete Doujin" Command="{Binding DoujinsViewModel.DeleteCommand}"/>
                 </ContextMenu>

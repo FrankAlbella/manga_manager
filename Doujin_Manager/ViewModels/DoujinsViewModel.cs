@@ -66,6 +66,12 @@ namespace Doujin_Manager.ViewModels
             get { _openCommand = new RelayCommand(param => OpenDoujinDirectory()); return _openCommand; }
         }
 
+        private ICommand _openBrowserCommand;
+        public ICommand OpenBrowserCommand
+        {
+            get { _openBrowserCommand = new RelayCommand(param => OpenDoujinInBrowser()); return _openBrowserCommand; }
+        }
+
         private ICommand _deleteCommand;
         public ICommand DeleteCommand
         {
@@ -84,6 +90,16 @@ namespace Doujin_Manager.ViewModels
         private void OpenDoujinDirectory()
         {
             SelectedDoujin.OpenDirectory();
+        }
+
+        private void OpenDoujinInBrowser()
+        {
+            string nHentaiUrl = @"https://nhentai.net/";
+
+            if (SelectedDoujin.ID != "000000")
+                nHentaiUrl += "g/" + SelectedDoujin.ID;
+
+            System.Diagnostics.Process.Start(nHentaiUrl);
         }
 
         private void DeleteDoujin()
