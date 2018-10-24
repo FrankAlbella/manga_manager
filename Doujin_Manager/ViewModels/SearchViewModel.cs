@@ -13,11 +13,8 @@ namespace Doujin_Manager.ViewModels
           set { this._visibility = value; NotifyPropertyChanged("Visibility"); }
         }
 
-        private ICommand _toggleSearchCommand;
         public ICommand ToggleSearchCommand
-        {
-            get { _toggleSearchCommand = new RelayCommand(param => ToggleSearchVisibility()); return _toggleSearchCommand; }
-        }
+        { get { return new RelayCommand(param => ToggleSearchVisibility()); } }
 
         private void ToggleSearchVisibility()
         {

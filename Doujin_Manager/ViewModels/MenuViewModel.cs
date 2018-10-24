@@ -6,16 +6,14 @@ namespace Doujin_Manager.ViewModels
 {
     class MenuViewModel
     {
-        private ICommand _openRepositoryCommand;
         public ICommand OpenRepositoryCommand
         {
-            get { _openRepositoryCommand = new RelayCommand(param => Process.Start("https://github.com/frankstar10/Doujin_Manager")); return _openRepositoryCommand; }
+            get { return new RelayCommand(param => Process.Start("https://github.com/frankstar10/Doujin_Manager"));}
         }
 
-        private ICommand _aboutCommand;
         public ICommand AboutCommand
         {
-            get { _aboutCommand = new RelayCommand(param => OpenAboutWindow()); return _aboutCommand; }
+            get { return new RelayCommand(param => OpenAboutWindow());}
         }
 
         private void OpenAboutWindow()

@@ -64,29 +64,17 @@ namespace Doujin_Manager.ViewModels
             }
         }
 
-        private ICommand _editCommand;
         public ICommand EditCommand
-        {
-            get { _editCommand = new RelayCommand(param => EditDoujin()); return _editCommand; }
-        }
+        { get { return new RelayCommand(param => EditDoujin());} }
 
-        private ICommand _openCommand;
         public ICommand OpenCommand
-        {
-            get { _openCommand = new RelayCommand(param => OpenDoujinDirectory()); return _openCommand; }
-        }
+        { get { return new RelayCommand(param => OpenDoujinDirectory());} }
 
-        private ICommand _openBrowserCommand;
         public ICommand OpenBrowserCommand
-        {
-            get { _openBrowserCommand = new RelayCommand(param => OpenDoujinInBrowser()); return _openBrowserCommand; }
-        }
+        { get { return new RelayCommand(param => OpenDoujinInBrowser());} }
 
-        private ICommand _deleteCommand;
         public ICommand DeleteCommand
-        {
-            get { _deleteCommand = new RelayCommand(param => DeleteDoujin()); return _deleteCommand; }
-        }
+        { get { return new RelayCommand(param => DeleteDoujin());} }
 
         private void EditDoujin()
         {
