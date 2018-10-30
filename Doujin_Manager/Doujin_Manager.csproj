@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Comparator\SortByAuthor.cs" />
+    <Compile Include="Comparator\SortByDateTime.cs" />
     <Compile Include="Comparator\SortByTitle.cs" />
     <Compile Include="Controls\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>

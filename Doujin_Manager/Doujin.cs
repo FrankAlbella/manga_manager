@@ -123,9 +123,8 @@ namespace Doujin_Manager
             
             if (DateAdded == null || DateAdded == new DateTime(0001, 1, 1, 0, 0, 0, 0))
                 DateAdded = DateTime.Now;
-            else
-                this.DateAdded = DateAdded;
 
+            this.DateAdded = DateAdded;
             this.Title = Title;
             this.Author = Author;
             this.Parodies = Parodies;

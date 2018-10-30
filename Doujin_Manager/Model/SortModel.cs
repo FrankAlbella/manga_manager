@@ -28,7 +28,7 @@ namespace Doujin_Manager.Model
         { get { return new RelayCommand(param => SortByAuthor()); } }
 
         public ICommand SortByDateAddedCommand
-        { get { return new RelayCommand(param => SortByAuthor()); } }
+        { get { return new RelayCommand(param => SortByDateAdded()); } }
 
         public ICommand SortByAscendingCommand
         { get { return new RelayCommand(param => ChangeSortDirection(ListSortDirection.Ascending)); } }
@@ -50,8 +50,8 @@ namespace Doujin_Manager.Model
 
         private void SortByDateAdded()
         {
-            filteredDoujinsView.CustomSort = new SortByAuthor(this.sortDirection);
-            selectedCommand = SortByAuthorCommand;
+            filteredDoujinsView.CustomSort = new SortByDateTime(this.sortDirection);
+            selectedCommand = SortByDateAddedCommand;
         }
 
 
