@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
         Title="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Doujin Manager - {0} Doujins}" 
-        Height="600" 
+        Height="600"
+        MinHeight="381"
         Width="900" 
+        MinWidth="207"
         Loaded="Window_Loaded" 
         Closing="Window_Closing">
     <Window.InputBindings>
@@ -126,17 +128,26 @@
         </ListView>
         
         <DockPanel x:Name="searchPanel"
+                   LastChildFill="True"
                    Grid.Row="2"
                    VerticalAlignment="Bottom"
                    Height="50"
                    Background="#FFD4D4D4"
                    Visibility="{Binding SearchViewModel.Visibility}">
+            <Button Name="searchBtn"
+                    DockPanel.Dock="Right"
+                    Content="Advanced"
+                    Height="30"
+                    Width="75"
+                    Margin="0,0,5,0"
+                    Command="{Binding SearchViewModel.ShowAdvancedSearch}"/>
             <TextBox Name="searchBox"
                      VerticalContentAlignment="Center"
                      Height="30"
                      Margin="5"
                      Text="{Binding DoujinsViewModel.TextSearch, UpdateSourceTrigger=PropertyChanged}"
                      IsVisibleChanged="searchBox_IsVisibleChanged"/>
+
         </DockPanel>
     </Grid>
 </Window>
