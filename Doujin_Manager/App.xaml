@@ -6,7 +6,7 @@
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-        <localViewModels:CentralViewModel x:Key="DoujinViewModel" />
+        <localViewModels:DoujinsViewModel x:Key="DoujinViewModel" />
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
     </Application.Resources>

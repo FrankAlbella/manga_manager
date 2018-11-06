@@ -1,7 +1,10 @@
 ﻿using Doujin_Manager.Controls;
+using Doujin_Manager.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,13 +13,6 @@ namespace Doujin_Manager.ViewModels
     class SearchViewModel : INotifyPropertyChanged
     {
         private SearchWindow searchWindow;
-
-        private Visibility _visibility = Visibility.Collapsed;
-        public Visibility Visibility
-        {
-          get { return _visibility; }
-          set { this._visibility = value; NotifyPropertyChanged("Visibility"); }
-        }
 
         public ObservableCollection<string> TitleKeywords { get; set; } = new ObservableCollection<string>();
 
@@ -28,22 +24,32 @@ namespace Doujin_Manager.ViewModels
 
         public ObservableCollection<string> TagKeywords { get; set; } = new ObservableCollection<string>();
 
-        public ICommand ToggleSearchCommand
-        { get { return new RelayCommand(param => ToggleSearchVisibility()); } }
-
         public ICommand ShowAdvancedSearch
         { get { return new RelayCommand(param => ShowAdvancedSearchWindow()); } }
 
-        private void ToggleSearchVisibility()
+        public ICommand ApplyAdvancedSearchCommand
+        { get { return new RelayCommand(param => ApplyAdvancedSearch()); } }
+
+        private string _textSearch;
+        public string TextSearch
         {
-            switch (Visibility)
+            get { return _textSearch; }
+            set
             {
-                case Visibility.Visible:
-                    Visibility = Visibility.Collapsed;
-                    break;
-                case Visibility.Collapsed:
-                    Visibility = Visibility.Visible;
-                    break;
+                _textSearch = value;
+                NotifyPropertyChanged("TextSearch");
+
+                if (String.IsNullOrEmpty(value))
+                    DoujinsModel.FilteredDoujinsView.Filter = null;
+                else
+                    DoujinsModel.FilteredDoujinsView.Filter = new Predicate<object>(o =>
+                    {
+                        Doujin doujin = ((Doujin)o);
+                        return doujin.Tags.ToLower().Contains(value.ToLower())
+                            || doujin.Title.ToLower().Contains(value.ToLower())
+                            || doujin.Parodies.ToLower().Contains(value.ToLower())
+                            || doujin.Characters.ToLower().Contains(value.ToLower());
+                    });
             }
         }
 
@@ -56,6 +62,20 @@ namespace Doujin_Manager.ViewModels
             searchWindow.Show();
             searchWindow.Activate();
             searchWindow.Focus();
+        }
+
+        private void ApplyAdvancedSearch()
+        {
+            DoujinsModel.FilteredDoujinsView.Filter = new Predicate<object>(o =>
+            {
+                Doujin doujin = ((Doujin)o);
+
+                return TitleKeywords.All(doujin.Title.ToLower().Contains)
+                    && AuthorKeywords.All(doujin.Author.ToLower().Contains)
+                    && ParodyKeywords.All(doujin.Parodies.ToLower().Contains)
+                    && CharacterKeywords.All(doujin.Characters.ToLower().Contains)
+                    && TagKeywords.All(doujin.Tags.ToLower().Contains);
+            });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Doujin_Manager"
         mc:Ignorable="d"
         DataContext="{StaticResource DoujinViewModel}"
-        Title="{Binding Path=DoujinsViewModel.Doujins.Count, StringFormat=Doujin Manager - {0} Doujins}" 
+        Title="{Binding Path=FilteredDoujinsView.Count, StringFormat=Doujin Manager - {0} Doujins}" 
         Height="600"
         MinHeight="381"
         Width="900" 
@@ -14,7 +14,7 @@
         Loaded="Window_Loaded" 
         Closing="Window_Closing">
     <Window.InputBindings>
-        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding SearchViewModel.ToggleSearchCommand}"/>
+        <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding ToggleSearchCommand}"/>
     </Window.InputBindings>
 
     <Grid>
@@ -37,10 +37,9 @@
                 <MenuItem Header="_General Settings"/>
             </MenuItem>
 
-            <MenuItem Header="_View">
+            <MenuItem Header="_View" DataContext="{StaticResource DoujinViewModel}">
                 <MenuItem x:Name="SortMenu"
-                          Header="Sort by"
-                          DataContext="{StaticResource DoujinViewModel}">
+                          Header="Sort by">
                     <MenuItem.Resources>
                         <RadioButton x:Key="RadioButtonResource"
                                      x:Shared="false"
@@ -56,14 +55,14 @@
                             <EventSetter Event="Click" Handler="SortByMenuItems_Click" />
                         </Style>
                     </MenuItem.ItemContainerStyle>
-                    <MenuItem Header="Title" Command="{Binding DoujinsViewModel.SortModel.SortByTitleCommand}"/>
-                    <MenuItem Header="Author" Command="{Binding DoujinsViewModel.SortModel.SortByAuthorCommand}"/>
-                    <MenuItem Header="Date added" Command="{Binding DoujinsViewModel.SortModel.SortByDateAddedCommand}"/>
+                    <MenuItem Header="Title" Command="{Binding SortModel.SortByTitleCommand}"/>
+                    <MenuItem Header="Author" Command="{Binding SortModel.SortByAuthorCommand}"/>
+                    <MenuItem Header="Date added" Command="{Binding SortModel.SortByDateAddedCommand}"/>
 
                     <Separator/>
 
-                    <MenuItem Header="Ascending" Command="{Binding DoujinsViewModel.SortModel.SortByAscendingCommand}"/>
-                    <MenuItem Header="Descending" Command="{Binding DoujinsViewModel.SortModel.SortByDescendingCommand}"/>
+                    <MenuItem Header="Ascending" Command="{Binding SortModel.SortByAscendingCommand}"/>
+                    <MenuItem Header="Descending" Command="{Binding SortModel.SortByDescendingCommand}"/>
                 </MenuItem>
             </MenuItem>
             
@@ -84,11 +83,11 @@
                 </Style>
             </StackPanel.Resources>
             
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Title, StringFormat=Title: {0}}"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Author, StringFormat=Author: {0}}"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Parodies, StringFormat=Parodies: {0}}"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Characters, StringFormat=Characters: {0}}"/>
-            <TextBlock Text="{Binding Path=DoujinsViewModel.SelectedDoujin.Tags, StringFormat=Tags: {0}}"/>
+            <TextBlock Text="{Binding Path=SelectedDoujin.Title, StringFormat=Title: {0}}"/>
+            <TextBlock Text="{Binding Path=SelectedDoujin.Author, StringFormat=Author: {0}}"/>
+            <TextBlock Text="{Binding Path=SelectedDoujin.Parodies, StringFormat=Parodies: {0}}"/>
+            <TextBlock Text="{Binding Path=SelectedDoujin.Characters, StringFormat=Characters: {0}}"/>
+            <TextBlock Text="{Binding Path=SelectedDoujin.Tags, StringFormat=Tags: {0}}"/>
         </StackPanel>
 
         <GridSplitter Grid.Row="1"
@@ -99,18 +98,18 @@
         <ListView x:Name="doujinListView"
                   Grid.Row="2"
                   Width="Auto"
-                  ItemsSource="{Binding Path=DoujinsViewModel.FilteredDoujinsView}"
-                  SelectedItem="{Binding Path=DoujinsViewModel.SelectedDoujin}"
+                  ItemsSource="{Binding Path=FilteredDoujinsView}"
+                  SelectedItem="{Binding Path=SelectedDoujin}"
                   Loaded="doujinListView_Loaded"
                   MouseDoubleClick="doujinListView_MouseDoubleClick"
                   ScrollViewer.CanContentScroll="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Open Doujin" Command="{Binding DoujinsViewModel.OpenCommand}"/>
-                    <MenuItem Header="Open Doujin in Browser" Command="{Binding DoujinsViewModel.OpenBrowserCommand}"/>
-                    <MenuItem Header="Edit Doujin" Command="{Binding DoujinsViewModel.EditCommand}"/>
-                    <MenuItem Header="Delete Doujin" Command="{Binding DoujinsViewModel.DeleteCommand}"/>
+                    <MenuItem Header="Open Doujin" Command="{Binding OpenCommand}"/>
+                    <MenuItem Header="Open Doujin in Browser" Command="{Binding OpenBrowserCommand}"/>
+                    <MenuItem Header="Edit Doujin" Command="{Binding EditCommand}"/>
+                    <MenuItem Header="Delete Doujin" Command="{Binding DeleteCommand}"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
             
@@ -133,19 +132,20 @@
                    VerticalAlignment="Bottom"
                    Height="50"
                    Background="#FFD4D4D4"
-                   Visibility="{Binding SearchViewModel.Visibility}">
+                   DataContext="{StaticResource SearchViewModel}"
+                   Visibility="{Binding Path=DataContext.SearchBoxVisibility, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
             <Button Name="searchBtn"
                     DockPanel.Dock="Right"
                     Content="Advanced"
                     Height="30"
                     Width="75"
                     Margin="0,0,5,0"
-                    Command="{Binding SearchViewModel.ShowAdvancedSearch}"/>
+                    Command="{Binding ShowAdvancedSearch}"/>
             <TextBox Name="searchBox"
                      VerticalContentAlignment="Center"
                      Height="30"
                      Margin="5"
-                     Text="{Binding DoujinsViewModel.TextSearch, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding TextSearch, UpdateSourceTrigger=PropertyChanged}"
                      IsVisibleChanged="searchBox_IsVisibleChanged"/>
 
         </DockPanel>

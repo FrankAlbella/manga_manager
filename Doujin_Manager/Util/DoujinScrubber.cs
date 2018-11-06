@@ -1,4 +1,5 @@
-﻿using Doujin_Manager.ViewModels;
+﻿using Doujin_Manager.Model;
+using Doujin_Manager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,15 +11,9 @@ namespace Doujin_Manager.Util
 {
     class DoujinScrubber
     {
-        private readonly CentralViewModel dataContext;
         private Cache cache;
 
         private static readonly List<string> extensions = new List<string> { ".jpg", ".jpeg", ".png" };
-
-        public DoujinScrubber(CentralViewModel dataContext)
-        {
-            this.dataContext = dataContext;
-        }
 
         public void PopulateDoujins()
         {
@@ -74,7 +69,7 @@ namespace Doujin_Manager.Util
                 System.Threading.Thread.Sleep(1000);
             }
 
-            Invoke_SaveToCache(dataContext.DoujinsViewModel.Doujins.ToList<Doujin>());
+            Invoke_SaveToCache(DoujinsModel.Doujins.ToList<Doujin>());
         }
 
         public static string GetDefaultCoverPath(string doujinDirectory)
@@ -128,8 +123,7 @@ namespace Doujin_Manager.Util
 
                 doujin.CreateAndSetCoverImage(coverImagePath);
 
-                dataContext.DoujinsViewModel.Doujins.Add(doujin);
-
+                DoujinsModel.Doujins.Add(doujin);
             }));
         }
 

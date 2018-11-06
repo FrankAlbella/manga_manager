@@ -13,14 +13,7 @@ namespace Doujin_Manager.ViewModels
 {
     class DoujinsViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Doujin> Doujins { get; set; } = new ObservableCollection<Doujin>();
-
-        public SortModel _sortModel;
-        public SortModel SortModel
-        {
-            get { return this._sortModel; }
-            set { this._sortModel = value; }
-        }
+        public SortModel SortModel { get; set; }
 
         private Doujin _selectedDouin;
         public Doujin SelectedDoujin
@@ -35,33 +28,17 @@ namespace Doujin_Manager.ViewModels
             get { return this._filteredDoujinsView; }
         }
 
-        public DoujinsViewModel()
+        private Visibility _searchBoxVisibility = Visibility.Collapsed;
+        public Visibility SearchBoxVisibility
         {
-            _filteredDoujinsView = new ListCollectionView(Doujins);
-            SortModel = new SortModel(ref _filteredDoujinsView);
+            get { return _searchBoxVisibility; }
+            set { this._searchBoxVisibility = value; NotifyPropertyChanged("SearchBoxVisibility"); }
         }
 
-        private string _textSearch;
-        public string TextSearch
+        public DoujinsViewModel()
         {
-            get { return _textSearch; }
-            set
-            {
-                _textSearch = value;
-                NotifyPropertyChanged("TextSearch");
-
-                if (String.IsNullOrEmpty(value))
-                    FilteredDoujinsView.Filter = null;
-                else
-                    FilteredDoujinsView.Filter = new Predicate<object>(o => 
-                    {
-                        Doujin doujin = ((Doujin)o);
-                        return doujin.Tags.ToLower().Contains(value.ToLower())
-                        || doujin.Title.ToLower().Contains(value.ToLower())
-                        || doujin.Parodies.ToLower().Contains(value.ToLower())
-                        || doujin.Characters.ToLower().Contains(value.ToLower());
-                    });
-            }
+            _filteredDoujinsView = (ListCollectionView)DoujinsModel.FilteredDoujinsView;
+            SortModel = new SortModel(ref _filteredDoujinsView);
         }
 
         public ICommand EditCommand
@@ -75,6 +52,9 @@ namespace Doujin_Manager.ViewModels
 
         public ICommand DeleteCommand
         { get { return new RelayCommand(param => DeleteDoujin());} }
+
+        public ICommand ToggleSearchCommand
+        { get { return new RelayCommand(param => ToggleSearchVisibility()); } }
 
         private void EditDoujin()
         {
@@ -109,7 +89,20 @@ namespace Doujin_Manager.ViewModels
             if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
             {
                 Directory.Delete(SelectedDoujin.Directory, true);
-                Doujins.Remove(SelectedDoujin);
+                DoujinsModel.Doujins.Remove(SelectedDoujin);
+            }
+        }
+
+        private void ToggleSearchVisibility()
+        {
+            switch (SearchBoxVisibility)
+            {
+                case Visibility.Visible:
+                    SearchBoxVisibility = Visibility.Collapsed;
+                    break;
+                case Visibility.Collapsed:
+                    SearchBoxVisibility = Visibility.Visible;
+                    break;
             }
         }
 

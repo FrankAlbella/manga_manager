@@ -1,4 +1,5 @@
-﻿using Doujin_Manager.Util;
+﻿using Doujin_Manager.Model;
+using Doujin_Manager.Util;
 using Doujin_Manager.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Doujin_Manager
 {
     public partial class MainWindow : Window
     {
-        CentralViewModel dataContext;
+        DoujinsViewModel dataContext;
         Thread populateThread;
 
         public MainWindow()
@@ -23,7 +24,7 @@ namespace Doujin_Manager
 
         private void AsyncPopulateDoujinPanel()
         {
-            DoujinScrubber ds = new DoujinScrubber(dataContext);
+            DoujinScrubber ds = new DoujinScrubber();
 
             if (populateThread != null && populateThread.IsAlive)
                 populateThread.Abort();
@@ -50,7 +51,7 @@ namespace Doujin_Manager
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            dataContext = (CentralViewModel)this.DataContext;
+            dataContext = (DoujinsViewModel)this.DataContext;
 
             // If appdata folder doesn't exist, create it and the thumbnail folder
             if (!Directory.Exists(PathUtil.appdataDir))
@@ -69,13 +70,13 @@ namespace Doujin_Manager
         private void btnChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
             ChooseDoujinRootDirection();
-            dataContext.DoujinsViewModel.Doujins.Clear();
+            DoujinsModel.Doujins.Clear();
             AsyncPopulateDoujinPanel();
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            dataContext.DoujinsViewModel.Doujins.Clear();
+            DoujinsModel.Doujins.Clear();
             AsyncPopulateDoujinPanel();
         }
 
@@ -87,7 +88,7 @@ namespace Doujin_Manager
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Cache cache = new Cache();
-            cache.Save(new List<Doujin>(this.dataContext.DoujinsViewModel.Doujins));
+            cache.Save(new List<Doujin>(DoujinsModel.Doujins));
         }
 
         private void searchBox_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
