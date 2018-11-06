@@ -22,7 +22,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="37" />
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -114,14 +114,22 @@
                  ItemsSource="{Binding TagKeywords}"/>
         <TextBox x:Name="tagTextBox" Grid.Column="1" Grid.Row="4"/>
 
-        <Button Grid.Column="1"
-                Grid.Row="5"
-                Width="57"
+        <StackPanel Grid.Column="1"
+                    Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">
+            <Button Width="57"
+                    Height="25"
+                    Content="Clear"
+                    Command="{Binding ClearKeywordsCommand}"/>
+            <Button Width="57"
                 Height="25"
                 Content="Apply"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
                 Margin="5"
                 Command="{Binding ApplyAdvancedSearchCommand}"/>
+        </StackPanel>
+
+        
     </Grid>
 </Window>

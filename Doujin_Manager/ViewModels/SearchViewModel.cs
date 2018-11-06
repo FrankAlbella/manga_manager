@@ -30,6 +30,9 @@ namespace Doujin_Manager.ViewModels
         public ICommand ApplyAdvancedSearchCommand
         { get { return new RelayCommand(param => ApplyAdvancedSearch()); } }
 
+        public ICommand ClearKeywordsCommand
+        { get { return new RelayCommand(param => ClearKeywords()); } }
+
         private string _textSearch;
         public string TextSearch
         {
@@ -76,6 +79,15 @@ namespace Doujin_Manager.ViewModels
                     && CharacterKeywords.All(doujin.Characters.ToLower().Contains)
                     && TagKeywords.All(doujin.Tags.ToLower().Contains);
             });
+        }
+
+        private void ClearKeywords()
+        {
+            TitleKeywords.Clear();
+            AuthorKeywords.Clear();
+            ParodyKeywords.Clear();
+            CharacterKeywords.Clear();
+            TagKeywords.Clear();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
