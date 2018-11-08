@@ -135,16 +135,18 @@ namespace Doujin_Manager.Util
 
             List<Doujin> cachedDoujins = cachedDoujinsQuery.ToList<Doujin>();
 
-            foreach (Doujin doujin in cachedDoujins)
+            Application.Current.Dispatcher.Invoke(new Action(() =>
             {
-                Invoke_AddDoujinToViewModel(doujin);
-            }
+                foreach (Doujin doujin in cachedDoujins)
+                {
+                    DoujinsModel.Doujins.Add(doujin);
+                }
+            }));
         }
 
         private List<string> GetPotentialDoujinDirectories()
         {
             string[] allSubDirectories;
-
 
             try
             {
@@ -166,12 +168,8 @@ namespace Doujin_Manager.Util
             {
                 string[] files = Directory.GetFiles(directory);
 
-                if (files.Any(s => s.ToLower().EndsWith(".jpg")) ||
-                    files.Any(s => s.ToLower().EndsWith(".png")) ||
-                    files.Any(s => s.ToLower().EndsWith(".jpeg")))
-                {
+                if (files.Any(s => extensions.Any(s.ToLower().EndsWith)))
                     potentialDoujinDirectories.Add(directory);
-                }
             }
 
             return potentialDoujinDirectories;
