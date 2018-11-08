@@ -12,7 +12,7 @@ namespace Doujin_Manager.Util
     {
         private Cache cache;
 
-        private static readonly List<string> extensions = new List<string> { ".jpg", ".jpeg", ".png" };
+        private static readonly string[] extensions = new string[] { ".jpg", ".jpeg", ".png" };
 
         public void PopulateDoujins()
         {
