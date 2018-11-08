@@ -1,5 +1,4 @@
 ﻿using Doujin_Manager.Model;
-using Doujin_Manager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,9 +1,7 @@
 ﻿using Doujin_Manager.Util;
 using Microsoft.Win32;
-using System;
 using System.IO;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace Doujin_Manager.Controls
 {

@@ -1,6 +1,5 @@
 ﻿using Doujin_Manager.Comparator;
 using Doujin_Manager.ViewModels;
-using System;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;

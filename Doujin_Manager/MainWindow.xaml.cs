@@ -1,7 +1,6 @@
 ﻿using Doujin_Manager.Model;
 using Doujin_Manager.Util;
 using Doujin_Manager.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

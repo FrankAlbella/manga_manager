@@ -1,8 +1,5 @@
-﻿using Doujin_Manager.Comparator;
-using Doujin_Manager.Controls;
+﻿using Doujin_Manager.Controls;
 using Doujin_Manager.Model;
-using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
