@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace Doujin_Manager.Util
 {
-    static class Settings
+    static class SettingsUtil
     {
         public static string DoujinDirectory
         {
             get { return Properties.Settings.Default.DoujinDirectory; }
             set { Properties.Settings.Default.DoujinDirectory = value; Properties.Settings.Default.Save(); }
         }
+
+        public struct Theme
+        {
+            public int titleBar;
+        }
+
     }
 }
