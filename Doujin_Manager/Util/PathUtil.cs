@@ -8,6 +8,6 @@ namespace Doujin_Manager.Util
         public static string thumbnailDir = appdataDir + @"\thumbnails";
         public static string saveFilePath = appdataDir + @"\settings.xml";
         public static string cacheFilePath = appdataDir + @"\cache.json";
-        public static string rootDoujinDirectory = Properties.Settings.Default.DoujinDirectory;
+        public static string rootDoujinDirectory = Settings.DoujinDirectory;
     }
 }

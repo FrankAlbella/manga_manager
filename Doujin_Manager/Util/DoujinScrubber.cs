@@ -16,7 +16,7 @@ namespace Doujin_Manager.Util
 
         public void PopulateDoujins()
         {
-            if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
+            if (!Directory.Exists(Settings.DoujinDirectory))
                 return;
 
             List<string> potentialDoujinDirectories = GetPotentialDoujinDirectories();
@@ -150,7 +150,7 @@ namespace Doujin_Manager.Util
 
             try
             {
-                allSubDirectories = Directory.GetDirectories(Properties.Settings.Default.DoujinDirectory, "*", SearchOption.AllDirectories);
+                allSubDirectories = Directory.GetDirectories(Settings.DoujinDirectory, "*", SearchOption.AllDirectories);
             }
             catch (UnauthorizedAccessException e)
             {

@@ -41,10 +41,7 @@ namespace Doujin_Manager
                 System.Windows.Forms.DialogResult result = fbd.ShowDialog();
 
                 if (!string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    Properties.Settings.Default.DoujinDirectory = fbd.SelectedPath;
-                    Properties.Settings.Default.Save();
-                }
+                    Settings.DoujinDirectory = fbd.SelectedPath;
             }
         }
 
@@ -57,7 +54,7 @@ namespace Doujin_Manager
                 Directory.CreateDirectory(PathUtil.thumbnailDir);
 
             // Open folder select dialog if no folder location is saved
-            if (!Directory.Exists(Properties.Settings.Default.DoujinDirectory))
+            if (!Directory.Exists(Settings.DoujinDirectory))
                 ChooseDoujinRootDirection();
         }
 
