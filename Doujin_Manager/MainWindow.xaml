@@ -74,12 +74,12 @@
         </Menu>
 
         <StackPanel x:Name="doujinInfoPanel"
-                    Grid.Row="1"
-                    Margin="5,0,0,0">
+                    Grid.Row="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="Margin" Value="5,0,0,0"/>
                 </Style>
             </StackPanel.Resources>
             

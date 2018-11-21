@@ -9,5 +9,33 @@
         <localViewModels:DoujinsViewModel x:Key="DoujinViewModel" />
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
+
+        <Style TargetType="{x:Type Grid}">
+            
+        </Style>
+
+        <Style TargetType="{x:Type Menu}">
+            <Setter Property="Background" Value="#1f1f1f"/>
+            <Setter Property="Foreground" Value="#d9d9d9"/>
+        </Style>
+
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="Foreground" Value="#d9d9d9"/>
+        </Style>
+
+        <Style TargetType="{x:Type StackPanel}">
+            <Setter Property="Background" Value="#242424"/>
+
+            <Style.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="#d9d9d9"/> 
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="#d9d9d9"/>
+        </Style>
     </Application.Resources>
 </Application>
