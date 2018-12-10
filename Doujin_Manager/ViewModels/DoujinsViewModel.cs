@@ -64,7 +64,8 @@ namespace Doujin_Manager.ViewModels
 
         private void OpenDoujinDirectory()
         {
-            SelectedDoujin.OpenDirectory();
+            if (SelectedDoujin != null)
+                SelectedDoujin.OpenDirectory();
         }
 
         private void OpenDoujinInBrowser()
