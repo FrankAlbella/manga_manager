@@ -95,7 +95,8 @@ namespace Doujin_Manager
 
         private void doujinListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ((Doujin)doujinListView.SelectedItem).OpenDirectory();
+            if(dataContext.SelectedDoujin != null)
+                dataContext.SelectedDoujin.OpenDirectory();
         }
 
         private void SortByMenuItems_Click(object sender, System.Windows.RoutedEventArgs e)
