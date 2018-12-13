@@ -10,6 +10,10 @@
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
 
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="#1f1f1f"/>
+        </Style>
+        
         <Style TargetType="{x:Type Grid}">
             
         </Style>
@@ -17,6 +21,7 @@
         <Style TargetType="{x:Type Menu}">
             <Setter Property="Background" Value="#1f1f1f"/>
             <Setter Property="Foreground" Value="#d9d9d9"/>
+            <Setter Property="BorderBrush" Value="#1f1f1f"/>
         </Style>
 
         <Style TargetType="{x:Type ListView}">
@@ -34,8 +39,45 @@
             </Style.Resources>
         </Style>
 
+        <Style TargetType="{x:Type DockPanel}">
+            <Setter Property="Background" Value="#FF343434"/>
+        </Style>
+
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="#d9d9d9"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="MinWidth" Value="57"/>
+            <Setter Property="Height" Value="25"/>
+
+            <Setter Property="Background" Value="#1f1f1f"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF292929"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Separator}">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="#1f1f1f"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Background" Value="#FF1B1B1B"/>
         </Style>
     </Application.Resources>
 </Application>

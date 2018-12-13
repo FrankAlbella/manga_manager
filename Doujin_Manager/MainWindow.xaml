@@ -80,6 +80,7 @@
                     <Setter Property="FontWeight" Value="Bold"/>
                     <Setter Property="TextWrapping" Value="Wrap"/>
                     <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="Foreground" Value="#d9d9d9"/>
                 </Style>
             </StackPanel.Resources>
             
@@ -131,7 +132,6 @@
                    Grid.Row="2"
                    VerticalAlignment="Bottom"
                    Height="50"
-                   Background="#FFD4D4D4"
                    DataContext="{StaticResource SearchViewModel}"
                    Visibility="{Binding Path=DataContext.SearchBoxVisibility, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
             <Button Name="searchBtn"

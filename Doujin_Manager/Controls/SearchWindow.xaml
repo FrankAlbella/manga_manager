@@ -38,11 +38,6 @@
                 <EventSetter Event="PreviewKeyDown" Handler="TextBox_PreviewKeyDown"/>
             </Style>
 
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="MinWidth" Value="57"/>
-                <Setter Property="Height" Value="25"/>
-            </Style>
-
             <Style TargetType="{x:Type ListView}">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
