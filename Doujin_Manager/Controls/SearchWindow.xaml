@@ -10,6 +10,7 @@
         MinHeight="450"
         Width="800"
         MinWidth="400"
+        Style="{StaticResource WindowStyle}"
         DataContext="{StaticResource SearchViewModel}">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -29,6 +30,7 @@
             <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="#d9d9d9"/>
             </Style>
 
             <Style TargetType="{x:Type TextBox}">

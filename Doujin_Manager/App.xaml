@@ -10,12 +10,12 @@
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
 
-        <Style TargetType="{x:Type Window}">
-            <Setter Property="Background" Value="#1f1f1f"/>
+        <Style x:Key="WindowStyle">
+            <Setter Property="Window.Background" Value="#1f1f1f"/>
         </Style>
         
-        <Style TargetType="{x:Type Grid}">
-            
+        <Style x:Key="GridStyle">
+            <Setter Property="Grid.Background" Value="#1f1f1f"/>
         </Style>
 
         <Style TargetType="{x:Type Menu}">
@@ -29,8 +29,12 @@
             <Setter Property="Foreground" Value="#d9d9d9"/>
         </Style>
 
+        <Style x:Key="LigherStackPanel">
+            <Setter Property="StackPanel.Background" Value="#242424"/>
+        </Style>
+        
         <Style TargetType="{x:Type StackPanel}">
-            <Setter Property="Background" Value="#242424"/>
+            <Setter Property="Background" Value="#1f1f1f"/>
 
             <Style.Resources>
                 <Style TargetType="{x:Type TextBlock}">
@@ -52,6 +56,7 @@
             <Setter Property="Height" Value="25"/>
 
             <Setter Property="Background" Value="#1f1f1f"/>
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

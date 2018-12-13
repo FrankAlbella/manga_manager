@@ -17,7 +17,7 @@
         <KeyBinding Key="F" Modifiers="Ctrl" Command="{Binding ToggleSearchCommand}"/>
     </Window.InputBindings>
 
-    <Grid>
+    <Grid Style="{StaticResource GridStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="95" MinHeight="80" MaxHeight="200" />
@@ -74,7 +74,8 @@
         </Menu>
 
         <StackPanel x:Name="doujinInfoPanel"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    Style="{StaticResource LigherStackPanel}">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontWeight" Value="Bold"/>
