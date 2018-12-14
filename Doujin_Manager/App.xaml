@@ -10,35 +10,39 @@
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
 
+        <SolidColorBrush Color="#1f1f1f" x:Key="colorDarkThemeDark"/>
+        <SolidColorBrush Color="#242424" x:Key="colorDarkThemeMedium"/>
+        <SolidColorBrush Color="#d9d9d9" x:Key="colorDarkThemeFont"/>
+
         <Style x:Key="WindowStyle">
-            <Setter Property="Window.Background" Value="#1f1f1f"/>
+            <Setter Property="Window.Background" Value="{StaticResource colorDarkThemeDark}"/>
         </Style>
         
         <Style x:Key="GridStyle">
-            <Setter Property="Grid.Background" Value="#1f1f1f"/>
+            <Setter Property="Grid.Background" Value="{StaticResource colorDarkThemeDark}"/>
         </Style>
 
         <Style TargetType="{x:Type Menu}">
-            <Setter Property="Background" Value="#1f1f1f"/>
-            <Setter Property="Foreground" Value="#d9d9d9"/>
-            <Setter Property="BorderBrush" Value="#1f1f1f"/>
+            <Setter Property="Background" Value="{StaticResource colorDarkThemeDark}"/>
+            <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource colorDarkThemeDark}"/>
         </Style>
 
         <Style TargetType="{x:Type ListView}">
-            <Setter Property="Background" Value="#242424"/>
-            <Setter Property="Foreground" Value="#d9d9d9"/>
+            <Setter Property="Background" Value="{StaticResource colorDarkThemeMedium}"/>
+            <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
         </Style>
 
         <Style x:Key="LigherStackPanel">
-            <Setter Property="StackPanel.Background" Value="#242424"/>
+            <Setter Property="StackPanel.Background" Value="{StaticResource colorDarkThemeMedium}"/>
         </Style>
         
         <Style TargetType="{x:Type StackPanel}">
-            <Setter Property="Background" Value="#1f1f1f"/>
+            <Setter Property="Background" Value="{StaticResource colorDarkThemeDark}"/>
 
             <Style.Resources>
                 <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Foreground" Value="#d9d9d9"/> 
+                    <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/> 
                 </Style>
             </Style.Resources>
         </Style>
@@ -48,14 +52,14 @@
         </Style>
 
         <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Foreground" Value="#d9d9d9"/>
+            <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
         </Style>
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="MinWidth" Value="57"/>
             <Setter Property="Height" Value="25"/>
 
-            <Setter Property="Background" Value="#1f1f1f"/>
+            <Setter Property="Background" Value="{StaticResource colorDarkThemeDark}"/>
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -76,7 +80,7 @@
         <Style TargetType="{x:Type Separator}">
             <Style.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="Background" Value="#1f1f1f"/>
+                    <Setter Property="Background" Value="{StaticResource colorDarkThemeDark}"/>
                 </Style>
             </Style.Resources>
         </Style>

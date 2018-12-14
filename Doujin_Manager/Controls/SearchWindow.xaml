@@ -30,7 +30,7 @@
             <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Foreground" Value="#d9d9d9"/>
+                <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
             </Style>
 
             <Style TargetType="{x:Type TextBox}">
