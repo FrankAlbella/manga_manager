@@ -17,7 +17,7 @@
         <Style x:Key="WindowStyle">
             <Setter Property="Window.Background" Value="{StaticResource colorDarkThemeDark}"/>
         </Style>
-        
+
         <Style x:Key="GridStyle">
             <Setter Property="Grid.Background" Value="{StaticResource colorDarkThemeDark}"/>
         </Style>

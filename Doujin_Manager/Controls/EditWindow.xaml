@@ -8,8 +8,9 @@
         Title="Edit Doujin"
         Width="696.296"
         Height="391.667"
-        ResizeMode="NoResize">
-    <Grid Margin="5" Loaded="Grid_Loaded">
+        ResizeMode="NoResize"
+        Style="{StaticResource WindowStyle}">
+    <Grid Margin="5" Loaded="Grid_Loaded" Style="{StaticResource GridStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.15*" />
             <ColumnDefinition Width="1*" />
@@ -29,17 +30,13 @@
             <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
             </Style>
-            
+
             <Style TargetType="{x:Type TextBox}">
                 <EventSetter Event="KeyDown" Handler="tBox_KeyDown"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Height" Value="23"/>
-            </Style>
-            
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Width" Value="57"/>
-                <Setter Property="Height" Value="25"/>
             </Style>
         </Grid.Resources>
 
