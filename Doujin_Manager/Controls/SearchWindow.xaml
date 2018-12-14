@@ -37,6 +37,8 @@
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Height" Value="23"/>
+                <Setter Property="Background" Value="{StaticResource colorDarkThemeExtraLight}"/>
+                <Setter Property="Foreground" Value="{StaticResource colorDarkThemeFont}"/>
                 <EventSetter Event="PreviewKeyDown" Handler="TextBox_PreviewKeyDown"/>
             </Style>
 
@@ -58,6 +60,7 @@
                 <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
                 <Setter Property="Margin" Value="0,3,0,23"/>
+                <Setter Property="Background" Value="{StaticResource colorDarkThemeLight}"/>
             </Style>
 
             <Style TargetType="{x:Type ListViewItem}">

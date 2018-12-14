@@ -10,9 +10,11 @@
         <localViewModels:MenuViewModel x:Key="MenuViewModel" />
         <localViewModels:SearchViewModel x:Key="SearchViewModel" />
 
-        <SolidColorBrush Color="#1f1f1f" x:Key="colorDarkThemeDark"/>
-        <SolidColorBrush Color="#242424" x:Key="colorDarkThemeMedium"/>
-        <SolidColorBrush Color="#d9d9d9" x:Key="colorDarkThemeFont"/>
+        <SolidColorBrush Color="#FF1f1f1f" x:Key="colorDarkThemeDark"/>
+        <SolidColorBrush Color="#FF242424" x:Key="colorDarkThemeMedium"/>
+        <SolidColorBrush Color="#FF303030" x:Key="colorDarkThemeLight"/>
+        <SolidColorBrush Color="#FF363636" x:Key="colorDarkThemeExtraLight"/>
+        <SolidColorBrush Color="#FFd9d9d9" x:Key="colorDarkThemeFont"/>
 
         <Style x:Key="WindowStyle">
             <Setter Property="Window.Background" Value="{StaticResource colorDarkThemeDark}"/>
@@ -50,7 +52,7 @@
         </Style>
 
         <Style TargetType="{x:Type DockPanel}">
-            <Setter Property="Background" Value="#FF343434"/>
+            <Setter Property="Background" Value="{StaticResource colorDarkThemeLight}"/>
         </Style>
 
         <Style TargetType="{x:Type TextBlock}">
