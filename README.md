@@ -1,4 +1,4 @@
-# Doujin Manager
+# Manga Manager
 A simple program for quickly viewing and searching through local archives of doujins.
 
 ## Requirements 
@@ -6,12 +6,9 @@ A simple program for quickly viewing and searching through local archives of dou
 * Newtonsoft.Json 11.0.2
 
 ## Current Features
-* Scans directory and finds potential doujins
+* Scans directory and finds potential manga
 * Displays the cover image of the doujin (using the first image in the folder)
-* Displays the title of the doujin (using the name of the folder)
-* Automatically gathers tags from nHentai
-* Manual editing of doujin info
-* Search and filter through doujin tags and titles
-
-## Todo
-* Optimization
+* Displays the title of the manga (using the name of the folder)
+* Automatically gathers tags
+* Manual editing of manga info
+* Search and filter through manga tags and titles
